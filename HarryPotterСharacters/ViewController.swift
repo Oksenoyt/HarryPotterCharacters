@@ -11,6 +11,9 @@ class ViewController: UIViewController {
     
     let link = "http://hp-api.herokuapp.com/api/characters"
     
+    override func viewDidLoad() {
+        fetchCharacters()
+    }
 }
 
 extension ViewController {
@@ -26,16 +29,11 @@ extension ViewController {
             
             do {
                 let characters = try JSONDecoder().decode([Character].self, from: data)
-                print(characters)
+                let rundomElement = Int.random(in: 0...characters.count)
+                print(characters[rundomElement])
             } catch let error {
                 print(error)
             }
-            
-            
-//            guard let image = UIImage(data: data) else { return }
-//            DispatchQueue.main.async {
-//                self?.imageView.image = image
-//            }
         }.resume()
     }
 }
