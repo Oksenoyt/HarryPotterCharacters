@@ -39,6 +39,48 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		429508CF28A2E32E00FFAA8C /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				42CCE9DF28A272D300C0BD06 /* ViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		429508D028A2E34F00FFAA8C /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				42CCE9E628A272D500C0BD06 /* LaunchScreen.storyboard */,
+				42CCE9E128A272D300C0BD06 /* Main.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		429508D128A2E3C200FFAA8C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				42CCE9EF28A272F600C0BD06 /* Сharacter.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		429508D228A2E3E600FFAA8C /* App */ = {
+			isa = PBXGroup;
+			children = (
+				42CCE9DD28A272D300C0BD06 /* SceneDelegate.swift */,
+				42CCE9DB28A272D300C0BD06 /* AppDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		429508D328A2E45500FFAA8C /* Resourses */ = {
+			isa = PBXGroup;
+			children = (
+				42CCE9E428A272D500C0BD06 /* Assets.xcassets */,
+			);
+			path = Resourses;
+			sourceTree = "<group>";
+		};
 		42CCE9CF28A272D300C0BD06 = {
 			isa = PBXGroup;
 			children = (
@@ -58,14 +100,12 @@
 		42CCE9DA28A272D300C0BD06 /* HarryPotterСharacters */ = {
 			isa = PBXGroup;
 			children = (
-				42CCE9DB28A272D300C0BD06 /* AppDelegate.swift */,
-				42CCE9DD28A272D300C0BD06 /* SceneDelegate.swift */,
-				42CCE9DF28A272D300C0BD06 /* ViewController.swift */,
-				42CCE9E128A272D300C0BD06 /* Main.storyboard */,
-				42CCE9E428A272D500C0BD06 /* Assets.xcassets */,
-				42CCE9E628A272D500C0BD06 /* LaunchScreen.storyboard */,
+				429508D228A2E3E600FFAA8C /* App */,
+				429508CF28A2E32E00FFAA8C /* ViewControllers */,
+				429508D128A2E3C200FFAA8C /* Models */,
+				429508D028A2E34F00FFAA8C /* Storyboards */,
+				429508D328A2E45500FFAA8C /* Resourses */,
 				42CCE9E928A272D500C0BD06 /* Info.plist */,
-				42CCE9EF28A272F600C0BD06 /* Сharacter.swift */,
 			);
 			path = "HarryPotterСharacters";
 			sourceTree = "<group>";
