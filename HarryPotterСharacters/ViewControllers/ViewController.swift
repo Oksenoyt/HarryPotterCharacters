@@ -29,7 +29,7 @@ extension ViewController {
             
             do {
                 let characters = try JSONDecoder().decode([Character].self, from: data)
-                let rundomElement = Int.random(in: 0...characters.count)
+                let rundomElement = Int.random(in: 0..<characters.count)
                 print(characters[rundomElement])
             } catch let error {
                 print(error)
