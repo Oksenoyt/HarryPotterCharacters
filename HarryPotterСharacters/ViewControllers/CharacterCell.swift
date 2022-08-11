@@ -20,10 +20,5 @@ class CharacterCell: UICollectionViewCell {
                 print(error)
             }
         }
-        
-//        nameLabel.text = character.name
     }
-    
-    
-        
 }

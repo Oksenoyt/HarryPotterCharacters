@@ -11,20 +11,19 @@ private let reuseIdentifier = "Cell"
 
 class CollectionViewController: UICollectionViewController {
     
-    //    var characters: [Character] = []
+    var characters: [Character] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         fetchData()
     }
-    var characters: [Character] = []
     
     //   MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let detailsVC = segue.destination as? CharacterCell else { return }
         guard let inpexPatx = collectionView.indexPathsForSelectedItems else { return }
-        //        detailsVC.character = characters[inpexPatx]
+        detailsVC.character = characters
     }
     
     // MARK: UICollectionViewDataSource
@@ -82,7 +81,7 @@ class CollectionViewController: UICollectionViewController {
             switch result {
             case .success(let characters):
                 self?.characters = characters
-//                self?.characters = characters.filter { $0.image.contains("htt") }
+                //                self?.characters = characters.filter { $0.image.contains("htt") }
                 DispatchQueue.main.async {
                     self?.collectionView.reloadData()
                 }
