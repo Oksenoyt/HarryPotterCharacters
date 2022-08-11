@@ -11,25 +11,24 @@ private let reuseIdentifier = "Cell"
 
 class CollectionViewController: UICollectionViewController {
     
+    var characters: [Character] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        fetchData()
     }
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using [segue destinationViewController].
-     // Pass the selected object to the new view controller.
-     }
-     */
+
+//   MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let characterCell = segue.destination as? CharacterCell else { return }
+        characterCell.character = characters.indexPath.row
+    }
     
     // MARK: UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return 10
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -44,6 +43,7 @@ class CollectionViewController: UICollectionViewController {
         }
         
         
+//        cell.characterImageView.image = UIImage(named: <#T##String#>)
         return cell
     }
     
@@ -77,7 +77,16 @@ class CollectionViewController: UICollectionViewController {
      
      }
      */
-    
+    private func fetchData() {
+        NetworkManager.shared.fetchCharacters { [weak self] result in
+            switch result {
+            case .success(let characters):
+                self?.characters = characters.filter { $0.image.contains("htt") }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
 }
 
 // MARK: UICollectionViewDelegateFlowLayout
@@ -87,6 +96,6 @@ extension CollectionViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        CGSize(width: UIScreen.main.bounds.width - 48, height: 100)
+        CGSize(width: UIScreen.main.bounds.width/2 - 17, height: UIScreen.main.bounds.width/1.9  )
     }
 }

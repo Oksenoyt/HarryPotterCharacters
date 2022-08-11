@@ -9,4 +9,8 @@ import UIKit
 
 class CharacterCell: UICollectionViewCell {
     
+    @IBOutlet weak var characterImageView: UIImageView!
+    let character: Character
+    
+        
 }
