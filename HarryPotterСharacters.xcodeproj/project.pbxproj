@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		42400D5328A4FEB600E9A598 /* CharacterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42400D5228A4FEB600E9A598 /* CharacterCell.swift */; };
+		42400D5528A508F200E9A598 /* СharactersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42400D5428A508F200E9A598 /* СharactersViewController.swift */; };
 		42CCE9DC28A272D300C0BD06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CCE9DB28A272D300C0BD06 /* AppDelegate.swift */; };
 		42CCE9DE28A272D300C0BD06 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CCE9DD28A272D300C0BD06 /* SceneDelegate.swift */; };
 		42CCE9E028A272D300C0BD06 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CCE9DF28A272D300C0BD06 /* ViewController.swift */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		42400D5228A4FEB600E9A598 /* CharacterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterCell.swift; sourceTree = "<group>"; };
+		42400D5428A508F200E9A598 /* СharactersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "СharactersViewController.swift"; sourceTree = "<group>"; };
 		42CCE9D828A272D300C0BD06 /* HarryPotterСharacters.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HarryPotterСharacters.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		42CCE9DB28A272D300C0BD06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		42CCE9DD28A272D300C0BD06 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -43,6 +47,8 @@
 			isa = PBXGroup;
 			children = (
 				42CCE9DF28A272D300C0BD06 /* ViewController.swift */,
+				42400D5228A4FEB600E9A598 /* CharacterCell.swift */,
+				42400D5428A508F200E9A598 /* СharactersViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -181,6 +187,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42400D5528A508F200E9A598 /* СharactersViewController.swift in Sources */,
+				42400D5328A4FEB600E9A598 /* CharacterCell.swift in Sources */,
 				42CCE9E028A272D300C0BD06 /* ViewController.swift in Sources */,
 				42CCE9F028A272F600C0BD06 /* Сharacter.swift in Sources */,
 				42CCE9DC28A272D300C0BD06 /* AppDelegate.swift in Sources */,

@@ -17,5 +17,5 @@ struct Character: Decodable {
 struct Wand: Decodable {
     let wood: String
     let core: String
-//    let length: Int? не смогла подобрать тип :(
+//    let length = Int( "" )?
 }

@@ -9,9 +9,10 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    let link = "http://hp-api.herokuapp.com/api/characters"
+    private let link = "http://hp-api.herokuapp.com/api/characters"
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         fetchCharacters()
     }
 }
