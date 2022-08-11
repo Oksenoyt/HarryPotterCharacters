@@ -10,7 +10,20 @@ import UIKit
 class CharacterCell: UICollectionViewCell {
     
     @IBOutlet weak var characterImageView: UIImageView!
-    let character: Character
+    
+    func congigure(with character: Character) {
+        NetworkManager.shared.fetchImage(from: character.image) { [weak self] result in
+            switch result {
+            case .success(let imageCharacter):
+                self?.characterImageView.image = UIImage(data: imageCharacter)
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+//        nameLabel.text = character.name
+    }
+    
     
         
 }

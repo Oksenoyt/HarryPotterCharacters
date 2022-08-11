@@ -11,24 +11,25 @@ private let reuseIdentifier = "Cell"
 
 class CollectionViewController: UICollectionViewController {
     
-    var characters: [Character] = []
+    //    var characters: [Character] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         fetchData()
     }
+    var characters: [Character] = []
     
-
-//   MARK: - Navigation
+    //   MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let characterCell = segue.destination as? CharacterCell else { return }
-        characterCell.character = characters.indexPath.row
+        guard let detailsVC = segue.destination as? CharacterCell else { return }
+        guard let inpexPatx = collectionView.indexPathsForSelectedItems else { return }
+        //        detailsVC.character = characters[inpexPatx]
     }
     
     // MARK: UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        characters.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -39,11 +40,10 @@ class CollectionViewController: UICollectionViewController {
             ) as? CharacterCell
         else {
             return UICollectionViewCell()
-            
         }
         
-        
-//        cell.characterImageView.image = UIImage(named: <#T##String#>)
+        let character = characters[indexPath.row]
+        cell.congigure(with: character)
         return cell
     }
     
@@ -81,7 +81,11 @@ class CollectionViewController: UICollectionViewController {
         NetworkManager.shared.fetchCharacters { [weak self] result in
             switch result {
             case .success(let characters):
-                self?.characters = characters.filter { $0.image.contains("htt") }
+                self?.characters = characters
+//                self?.characters = characters.filter { $0.image.contains("htt") }
+                DispatchQueue.main.async {
+                    self?.collectionView.reloadData()
+                }
             case .failure(let error):
                 print(error)
             }
