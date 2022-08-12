@@ -17,7 +17,6 @@ class CharacterCell: UICollectionViewCell {
             switch result {
             case .success(let imageCharacter):
                 self?.characterImageView.image = UIImage(data: imageCharacter)
-//                self?.nameCharacterLabel.text =
             case .failure(let error):
                 print(error)
             }

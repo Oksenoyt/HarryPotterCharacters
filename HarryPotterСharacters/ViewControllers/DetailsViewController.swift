@@ -17,10 +17,19 @@ class DetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        imageView.image = UIImage(named: character.image) 
+        imageCongigure(with: character)
         nameLabel.text = character.name
         descriptionLabel.text = "wizard: \(character.wizard) \n house: \(character.house) \n "
-
+    }
+    
+    func imageCongigure(with character: Character) {
+        NetworkManager.shared.fetchImage(from: character.image) { [weak self] result in
+            switch result {
+            case .success(let imageCharacter):
+                self?.imageView.image = UIImage(data: imageCharacter)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }

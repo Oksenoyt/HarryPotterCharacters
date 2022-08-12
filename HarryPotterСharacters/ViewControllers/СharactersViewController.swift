@@ -22,9 +22,10 @@ class CollectionViewController: UICollectionViewController {
     
     //   MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        guard let detailsVC = segue.destination as? CharacterCell else { return }
-//        guard let inpexPatx = collectionView.indexPathsForSelectedItems else { return }
-//        detailsVC.character = characters
+        guard let detailsVC = segue.destination as? DetailsViewController else { return }
+        guard let cell = sender as? UICollectionViewCell else { return } // такой способ передачи данных норма? или лучше как то иначе?
+        guard let inpexPatx = collectionView.indexPath(for: cell) else { return }
+        detailsVC.character = characters[inpexPatx.row]
     }
     
     // MARK: UICollectionViewDataSource
