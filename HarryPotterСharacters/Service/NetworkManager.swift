@@ -15,33 +15,8 @@ enum NetworkError: Error {
 
 class NetworkManager {
     static let shared = NetworkManager()
-    private let link = "http://hp-api.herokuapp.com/api/characters"
     
     private init() {}
-    
-    func fetchCharacters(completion: @escaping (Result<[Character], NetworkError>) -> Void) {
-        guard let url = URL(string: link) else {
-            completion(.failure(.invalidURL))
-            return
-        }
-        
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data = data else {
-                completion(.failure(.noDate))
-                print(error?.localizedDescription ?? "No error description")
-                return
-            }
-            do {
-                let characters = try JSONDecoder().decode([Character].self, from: data)
-                let rundomElement = Int.random(in: 0..<characters.count)
-                print(characters[rundomElement])
-                completion(.success(characters))
-            } catch let error {
-                completion(.failure(.decodingError))
-                print(error)
-            }
-        }.resume()
-    }
     
     func fetchImage(from url: String, completion: @escaping(Result<Data, NetworkError>) ->  Void) {
         guard let url = URL(string: url) else {
@@ -57,5 +32,28 @@ class NetworkManager {
                 completion(.success(imageDate))
             }
         }
+    }
+    
+    func fetch<T: Decodable>(_ type: T.Type, from url: String, completion: @escaping(Result<T, NetworkError>) ->  Void) {
+        guard let url = URL(string: url) else {
+            completion(.failure(.invalidURL))
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            guard let data = data else {
+                completion(.failure(.noDate))
+                return
+            }
+            do {
+                let type = try JSONDecoder().decode(T.self, from: data)
+                print(type)
+                DispatchQueue.main.async {
+                    completion(.success(type))
+                }
+            } catch {
+                completion(.failure(.decodingError))
+            }
+        }.resume()
     }
 }

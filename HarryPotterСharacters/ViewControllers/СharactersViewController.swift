@@ -12,6 +12,7 @@ private let reuseIdentifier = "Cell"
 class CollectionViewController: UICollectionViewController {
     
     var characters: [Character] = []
+    private let link = "http://hp-api.herokuapp.com/api/characters"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,9 +22,9 @@ class CollectionViewController: UICollectionViewController {
     
     //   MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let detailsVC = segue.destination as? CharacterCell else { return }
-        guard let inpexPatx = collectionView.indexPathsForSelectedItems else { return }
-        detailsVC.character = characters
+//        guard let detailsVC = segue.destination as? CharacterCell else { return }
+//        guard let inpexPatx = collectionView.indexPathsForSelectedItems else { return }
+//        detailsVC.character = characters
     }
     
     // MARK: UICollectionViewDataSource
@@ -42,7 +43,9 @@ class CollectionViewController: UICollectionViewController {
         }
         
         let character = characters[indexPath.row]
-        cell.congigure(with: character)
+        cell.nameCharacterLabel.text = character.name
+        
+        cell.imageCongigure(with: character)
         return cell
     }
     
@@ -76,12 +79,12 @@ class CollectionViewController: UICollectionViewController {
      
      }
      */
+    
     private func fetchData() {
-        NetworkManager.shared.fetchCharacters { [weak self] result in
+        NetworkManager.shared.fetch([Character].self, from: link) { [weak self] result in
             switch result {
             case .success(let characters):
                 self?.characters = characters
-                //                self?.characters = characters.filter { $0.image.contains("htt") }
                 DispatchQueue.main.async {
                     self?.collectionView.reloadData()
                 }

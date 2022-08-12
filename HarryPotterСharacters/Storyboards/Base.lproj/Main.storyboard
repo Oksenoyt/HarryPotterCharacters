@@ -31,20 +31,21 @@
                                     <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZYf-hp-qO9">
-                                            <rect key="frame" x="27" y="54" width="59" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                            <color key="textColor" red="0.6588235294" green="0.91764705879999997" blue="0.73725490199999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TiZ-b4-ZSX">
                                             <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                         </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZYf-hp-qO9">
+                                            <rect key="frame" x="8" y="90" width="59" height="30"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                            <color key="textColor" red="0.6588235294" green="0.91764705879999997" blue="0.73725490199999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="ZYf-hp-qO9" firstAttribute="bottom" secondItem="TiZ-b4-ZSX" secondAttribute="bottom" id="204-Xy-hV3"/>
                                         <constraint firstAttribute="trailing" secondItem="TiZ-b4-ZSX" secondAttribute="trailing" id="W3R-fR-fuR"/>
                                         <constraint firstAttribute="bottom" secondItem="TiZ-b4-ZSX" secondAttribute="bottom" id="e4v-2Z-1av"/>
+                                        <constraint firstItem="ZYf-hp-qO9" firstAttribute="centerX" secondItem="TiZ-b4-ZSX" secondAttribute="centerX" id="fT4-1Z-Zd4"/>
                                         <constraint firstItem="TiZ-b4-ZSX" firstAttribute="top" secondItem="Ele-uK-MDw" secondAttribute="top" id="w0K-ZN-bdQ"/>
                                         <constraint firstItem="TiZ-b4-ZSX" firstAttribute="leading" secondItem="Ele-uK-MDw" secondAttribute="leading" id="xvI-DC-VUJ"/>
                                     </constraints>
@@ -52,6 +53,7 @@
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="characterImageView" destination="TiZ-b4-ZSX" id="Wrg-9f-gEo"/>
+                                    <outlet property="nameCharacterLabel" destination="ZYf-hp-qO9" id="vBf-cL-ehy"/>
                                     <segue destination="JGQ-h7-GkG" kind="show" id="0Kh-Vn-LYZ"/>
                                 </connections>
                             </collectionViewCell>

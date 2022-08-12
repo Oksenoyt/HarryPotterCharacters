@@ -10,12 +10,14 @@ import UIKit
 class CharacterCell: UICollectionViewCell {
     
     @IBOutlet weak var characterImageView: UIImageView!
+    @IBOutlet weak var nameCharacterLabel: UILabel!
     
-    func congigure(with character: Character) {
+    func imageCongigure(with character: Character) {
         NetworkManager.shared.fetchImage(from: character.image) { [weak self] result in
             switch result {
             case .success(let imageCharacter):
                 self?.characterImageView.image = UIImage(data: imageCharacter)
+//                self?.nameCharacterLabel.text =
             case .failure(let error):
                 print(error)
             }
