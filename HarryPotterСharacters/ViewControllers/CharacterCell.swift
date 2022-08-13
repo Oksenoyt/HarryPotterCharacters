@@ -21,5 +21,6 @@ class CharacterCell: UICollectionViewCell {
                 print(error)
             }
         }
+        layer.cornerRadius = 10
     }
 }
