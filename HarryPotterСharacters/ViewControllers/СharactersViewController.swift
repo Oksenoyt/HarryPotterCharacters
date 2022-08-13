@@ -12,12 +12,15 @@ private let reuseIdentifier = "Cell"
 class CollectionViewController: UICollectionViewController {
     
     var characters: [Character] = []
+    
     private let link = "http://hp-api.herokuapp.com/api/characters"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         fetchData()
+        collectionView.delegate = self
+        collectionView.collectionViewLayout = UICollectionViewFlowLayout()
     }
     
     //   MARK: - Navigation
@@ -42,7 +45,7 @@ class CollectionViewController: UICollectionViewController {
         else {
             return UICollectionViewCell()
         }
-        
+    
         let character = characters[indexPath.row]
         cell.nameCharacterLabel.text = character.name
         
@@ -85,7 +88,7 @@ class CollectionViewController: UICollectionViewController {
         NetworkManager.shared.fetch([Character].self, from: link) { [weak self] result in
             switch result {
             case .success(let characters):
-                self?.characters = characters
+                self?.characters = characters.filter { $0.image != "" }
                 DispatchQueue.main.async {
                     self?.collectionView.reloadData()
                 }
@@ -104,5 +107,6 @@ extension CollectionViewController: UICollectionViewDelegateFlowLayout {
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
         CGSize(width: UIScreen.main.bounds.width/2 - 17, height: UIScreen.main.bounds.width/1.9  )
+//        CGSize(width: 150, height: 300  )
     }
 }
