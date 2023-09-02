@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Title-->
+        <!--Character-->
         <scene sceneID="3ju-0w-pTN">
             <objects>
                 <collectionViewController id="t6c-Rb-X3Y" customClass="CollectionViewController" customModule="HarryPotterСharacters" customModuleProvider="target" sceneMemberID="viewController">
@@ -63,7 +63,7 @@
                             <outlet property="delegate" destination="t6c-Rb-X3Y" id="Z6p-lO-8zh"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="Title" id="8GK-Mz-kdX"/>
+                    <navigationItem key="navigationItem" title="Character" id="8GK-Mz-kdX"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hqM-Km-PRx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
