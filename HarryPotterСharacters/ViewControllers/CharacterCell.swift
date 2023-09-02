@@ -13,6 +13,9 @@ class CharacterCell: UICollectionViewCell {
     @IBOutlet weak var nameCharacterLabel: UILabel!
     
     func imageCongigure(with character: Character) {
+        nameCharacterLabel.text = character.name
+        layer.cornerRadius = 10
+
         NetworkManager.shared.fetchImage(from: character.image) { [weak self] result in
             switch result {
             case .success(let imageCharacter):
@@ -21,6 +24,5 @@ class CharacterCell: UICollectionViewCell {
                 print(error)
             }
         }
-        layer.cornerRadius = 10
     }
 }

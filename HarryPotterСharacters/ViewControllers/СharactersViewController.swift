@@ -13,7 +13,7 @@ class CollectionViewController: UICollectionViewController {
     
     var characters: [Character] = []
     
-    private let link = "http://hp-api.herokuapp.com/api/characters"
+    private let link = "https://hp-api.onrender.com/api/characters"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +26,7 @@ class CollectionViewController: UICollectionViewController {
     //   MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let detailsVC = segue.destination as? DetailsViewController else { return }
-        guard let cell = sender as? UICollectionViewCell else { return } // такой способ передачи данных норма? или лучше как то иначе?
+        guard let cell = sender as? UICollectionViewCell else { return }
         guard let inpexPatx = collectionView.indexPath(for: cell) else { return }
         detailsVC.character = characters[inpexPatx.row]
     }
@@ -47,7 +47,6 @@ class CollectionViewController: UICollectionViewController {
         }
         
         let character = characters[indexPath.row]
-        cell.nameCharacterLabel.text = character.name
         cell.imageCongigure(with: character)
         
         return cell
