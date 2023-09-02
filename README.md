@@ -1,12 +1,12 @@
 # HarryPotterHaracters test project UIKit
 _____________________________________
 
-Working with:
-UICollectionViewController
-UICollectionViewCell
-UITableViewController
-Singleton (NetworkManager)
-Request data using generic, URLSession
+### Working with:
+- UICollectionViewController
+- UICollectionViewCell
+- UITableViewController
+- Singleton (NetworkManager)
+- Request data using generic, URLSession
 
 API: https://hp-api.onrender.com
 
