@@ -7,23 +7,24 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
+enum Link: String {
+    case character = "https://hp-api.onrender.com/api/characters"
+    case spells = "https://hp-api.onrender.com/api/spells"
+}
 
-class CollectionViewController: UICollectionViewController {
+
+final class CollectionViewController: UICollectionViewController {
     
     var characters: [Character] = []
-    
-    private let link = "https://hp-api.onrender.com/api/characters"
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         fetchData()
         collectionView.delegate = self
         collectionView.collectionViewLayout = UICollectionViewFlowLayout()
     }
     
-    //   MARK: - Navigation
+    // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let detailsVC = segue.destination as? DetailsViewController else { return }
         guard let cell = sender as? UICollectionViewCell else { return }
@@ -51,9 +52,10 @@ class CollectionViewController: UICollectionViewController {
         
         return cell
     }
-    
+
+    // MARK: - Private function
     private func fetchData() {
-        NetworkManager.shared.fetch([Character].self, from: link) { [weak self] result in
+        NetworkManager.shared.fetch([Character].self, from: Link.character.rawValue) { [weak self] result in
             switch result {
             case .success(let characters):
                 self?.characters = characters.filter { $0.image != "" }

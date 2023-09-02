@@ -10,6 +10,8 @@
 		42400D5328A4FEB600E9A598 /* CharacterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42400D5228A4FEB600E9A598 /* CharacterCell.swift */; };
 		42400D5528A508F200E9A598 /* СharactersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42400D5428A508F200E9A598 /* СharactersViewController.swift */; };
 		426FA12028A51F540051C07C /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426FA11F28A51F540051C07C /* NetworkManager.swift */; };
+		42748F252AA3B95F009A76A2 /* Spell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42748F242AA3B95F009A76A2 /* Spell.swift */; };
+		42748F272AA3BB52009A76A2 /* SpellsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42748F262AA3BB52009A76A2 /* SpellsTableViewController.swift */; };
 		42CCE9DC28A272D300C0BD06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CCE9DB28A272D300C0BD06 /* AppDelegate.swift */; };
 		42CCE9DE28A272D300C0BD06 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CCE9DD28A272D300C0BD06 /* SceneDelegate.swift */; };
 		42CCE9E028A272D300C0BD06 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CCE9DF28A272D300C0BD06 /* DetailsViewController.swift */; };
@@ -23,6 +25,8 @@
 		42400D5228A4FEB600E9A598 /* CharacterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterCell.swift; sourceTree = "<group>"; };
 		42400D5428A508F200E9A598 /* СharactersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "СharactersViewController.swift"; sourceTree = "<group>"; };
 		426FA11F28A51F540051C07C /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		42748F242AA3B95F009A76A2 /* Spell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spell.swift; sourceTree = "<group>"; };
+		42748F262AA3BB52009A76A2 /* SpellsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpellsTableViewController.swift; sourceTree = "<group>"; };
 		42CCE9D828A272D300C0BD06 /* HarryPotterСharacters.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HarryPotterСharacters.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		42CCE9DB28A272D300C0BD06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		42CCE9DD28A272D300C0BD06 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +63,7 @@
 				42CCE9DF28A272D300C0BD06 /* DetailsViewController.swift */,
 				42400D5228A4FEB600E9A598 /* CharacterCell.swift */,
 				42400D5428A508F200E9A598 /* СharactersViewController.swift */,
+				42748F262AA3BB52009A76A2 /* SpellsTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -76,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				42CCE9EF28A272F600C0BD06 /* Сharacter.swift */,
+				42748F242AA3B95F009A76A2 /* Spell.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -119,10 +125,10 @@
 				429508D228A2E3E600FFAA8C /* App */,
 				429508CF28A2E32E00FFAA8C /* ViewControllers */,
 				429508D128A2E3C200FFAA8C /* Models */,
+				426FA12128A51F950051C07C /* Service */,
 				429508D028A2E34F00FFAA8C /* Storyboards */,
 				429508D328A2E45500FFAA8C /* Resourses */,
 				42CCE9E928A272D500C0BD06 /* Info.plist */,
-				426FA12128A51F950051C07C /* Service */,
 			);
 			path = "HarryPotterСharacters";
 			sourceTree = "<group>";
@@ -201,9 +207,11 @@
 				42400D5528A508F200E9A598 /* СharactersViewController.swift in Sources */,
 				42400D5328A4FEB600E9A598 /* CharacterCell.swift in Sources */,
 				42CCE9E028A272D300C0BD06 /* DetailsViewController.swift in Sources */,
+				42748F272AA3BB52009A76A2 /* SpellsTableViewController.swift in Sources */,
 				426FA12028A51F540051C07C /* NetworkManager.swift in Sources */,
 				42CCE9F028A272F600C0BD06 /* Сharacter.swift in Sources */,
 				42CCE9DC28A272D300C0BD06 /* AppDelegate.swift in Sources */,
+				42748F252AA3B95F009A76A2 /* Spell.swift in Sources */,
 				42CCE9DE28A272D300C0BD06 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

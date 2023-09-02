@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailsViewController: UIViewController {
+final class DetailsViewController: UIViewController {
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -18,12 +18,13 @@ class DetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        imageCongigure(with: character)
+        configure(with: character)
+    }
+
+    func configure(with character: Character) {
         nameLabel.text = character.name
         descriptionLabel.text = "\nhouse: \(character.house) \nwand: \(character.wand.wood) \nactor: \(character.actor )"
-    }
-    
-    func imageCongigure(with character: Character) {
+
         imageView.layer.cornerRadius = 15
         imageView.contentMode = .scaleAspectFill
 

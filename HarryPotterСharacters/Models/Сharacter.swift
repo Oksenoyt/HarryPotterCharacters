@@ -6,10 +6,8 @@
 //
 struct Character: Decodable {
     let name: String
-    let wizard: Bool
     let house: String
     let wand: Wand
-    let hogwartsStudent: Bool
     let image: String
     let actor: String
 }
