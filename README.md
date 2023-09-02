@@ -7,6 +7,7 @@ _____________________________________
 - UITableViewController
 - Singleton (NetworkManager)
 - Request data using generic, URLSession
+- MVC
 
 API: https://hp-api.onrender.com
 
