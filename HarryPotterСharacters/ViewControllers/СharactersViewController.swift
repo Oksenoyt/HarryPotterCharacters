@@ -14,7 +14,7 @@ enum Link: String {
 
 
 final class CollectionViewController: UICollectionViewController {
-    
+
     var characters: [Character] = []
 
     override func viewDidLoad() {
@@ -22,6 +22,8 @@ final class CollectionViewController: UICollectionViewController {
         fetchData()
         collectionView.delegate = self
         collectionView.collectionViewLayout = UICollectionViewFlowLayout()
+
+        setupRefreshControl()
     }
     
     // MARK: - Navigation
@@ -61,21 +63,39 @@ final class CollectionViewController: UICollectionViewController {
                 self?.characters = characters.filter { $0.image != "" }
                 DispatchQueue.main.async {
                     self?.collectionView.reloadData()
+                    self?.collectionView.refreshControl?.endRefreshing()
                 }
             case .failure(let error):
                 print(error)
             }
         }
     }
+
+    @objc private func refreshData(_ sender: UIRefreshControl) {
+        fetchData()
+    }
+
+    private func setupRefreshControl() {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        collectionView.refreshControl = refreshControl
+        refreshControl.tintColor = .lightGray
+        refreshControl.attributedTitle =
+        NSAttributedString(
+            string: "Pull to refresh",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray]
+        )
+    }
 }
 
 // MARK: UICollectionViewDelegateFlowLayout
 extension CollectionViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath
-    ) -> CGSize {
-        CGSize(width: UIScreen.main.bounds.width/2 - 5, height: UIScreen.main.bounds.width/1.5  )
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        CGSize(
+            width: UIScreen.main.bounds.width/2 - 5,
+            height: UIScreen.main.bounds.width/1.5
+        )
     }
 }
