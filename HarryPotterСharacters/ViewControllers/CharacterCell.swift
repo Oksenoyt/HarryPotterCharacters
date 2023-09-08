@@ -12,11 +12,18 @@ final class CharacterCell: UICollectionViewCell {
     @IBOutlet weak var characterImageView: UIImageView!
     @IBOutlet weak var nameCharacterLabel: UILabel!
 
+    private var activityIndicator: UIActivityIndicatorView?
+
     private var imageURL: URL? {
         didSet {
             characterImageView.image =  nil
             updateImage()
         }
+    }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        activityIndicator = ActivityIndicator().showSpinner(in: characterImageView)
     }
 
     func imageCongigure(with character: Character) {
@@ -33,7 +40,7 @@ final class CharacterCell: UICollectionViewCell {
             case .success(let image):
                 if url == self?.imageURL {
                     self?.characterImageView.image = image
-
+                    self?.activityIndicator?.stopAnimating()
                 }
             case .failure(let error):
                 print(error)
@@ -44,7 +51,6 @@ final class CharacterCell: UICollectionViewCell {
     private func getImage(from url: URL, completion: @escaping(Result<UIImage, Error>) -> Void) {
 
         if let cahcedImage = ImageCacheManager.shared.object(forKey: url.lastPathComponent as NSString) {
-            print("Image from cache: ", url.lastPathComponent)
             completion(.success(cahcedImage))
             return
         }
@@ -58,13 +64,22 @@ final class CharacterCell: UICollectionViewCell {
                 }
 
                 ImageCacheManager.shared.setObject(uiImage, forKey: url.lastPathComponent as NSString)
-                print("Image from network: ", url.lastPathComponent)
                 completion(.success(uiImage))
 
             case .failure(let error):
                 print(error)
             }
         }
+    }
+
+    func showSpinner(in view: UIView) -> UIActivityIndicatorView {
+        let activityIndicator = UIActivityIndicatorView(style: .medium)
+        activityIndicator.color = .white
+        activityIndicator.startAnimating()
+        activityIndicator.center = view.center
+        activityIndicator.hidesWhenStopped = true
+        view.addSubview(activityIndicator)
+        return activityIndicator
     }
 
 
