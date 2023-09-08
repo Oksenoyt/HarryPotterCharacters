@@ -32,6 +32,7 @@ final class CharacterCell: UICollectionViewCell {
         layer.cornerRadius = 10
     }
 
+    // MARK: - Private function
     private func updateImage() {
         guard let url = imageURL else { return }
 
@@ -71,16 +72,4 @@ final class CharacterCell: UICollectionViewCell {
             }
         }
     }
-
-    func showSpinner(in view: UIView) -> UIActivityIndicatorView {
-        let activityIndicator = UIActivityIndicatorView(style: .medium)
-        activityIndicator.color = .white
-        activityIndicator.startAnimating()
-        activityIndicator.center = view.center
-        activityIndicator.hidesWhenStopped = true
-        view.addSubview(activityIndicator)
-        return activityIndicator
-    }
-
-
 }

@@ -29,7 +29,7 @@ final class CollectionViewController: UICollectionViewController {
         guard let detailsVC = segue.destination as? DetailsViewController else { return }
         guard let cell = sender as? UICollectionViewCell else { return }
         guard let inpexPatx = collectionView.indexPath(for: cell) else { return }
-        detailsVC.character = characters[inpexPatx.row]
+        detailsVC.configure(with: characters[inpexPatx.row])
     }
     
     // MARK: UICollectionViewDataSource

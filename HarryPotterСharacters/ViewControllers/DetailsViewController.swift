@@ -12,31 +12,36 @@ final class DetailsViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
+
+    private var activityIndicator: UIActivityIndicatorView?
     
-    var character: Character!
+//    var character: Character!
+//
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//
+//        configure(with: character)
+//    }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        configure(with: character)
-    }
-
-    // MARK: - Private func
-    private func configure(with character: Character) {
+    // MARK: - Private function
+     func configure(with character: Character) {
         nameLabel.text = character.name
         descriptionLabel.text = "\nhouse: \(character.house) \nwand: \(character.wand.wood) \nactor: \(character.actor )"
 
         imageView.layer.cornerRadius = 15
         imageView.contentMode = .scaleAspectFill
 
+        activityIndicator = ActivityIndicator().showSpinner(in: imageView)
         getImage(from: character.image)
     }
 
     private func getImage(from url: String) {
-        guard let imageURL = URL(string: character.image) else { return }
+        guard let imageURL = URL(string: url) else { return }
 
         if let cahcedImage = ImageCacheManager.shared.object(forKey: imageURL.lastPathComponent as NSString) {
             imageView.image = cahcedImage
+
+            activityIndicator?.stopAnimating()
             return
         }
 
@@ -50,7 +55,7 @@ final class DetailsViewController: UIViewController {
 
                 ImageCacheManager.shared.setObject(uiImage, forKey: imageURL.lastPathComponent as NSString)
                 self?.imageView.image = uiImage
-
+                self?.activityIndicator?.stopAnimating()
             case .failure(let error):
                 print(error)
             }
