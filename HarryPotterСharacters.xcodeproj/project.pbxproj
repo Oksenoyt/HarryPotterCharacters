@@ -19,6 +19,7 @@
 		42CCE9E528A272D500C0BD06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42CCE9E428A272D500C0BD06 /* Assets.xcassets */; };
 		42CCE9E828A272D500C0BD06 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42CCE9E628A272D500C0BD06 /* LaunchScreen.storyboard */; };
 		42CCE9F028A272F600C0BD06 /* Сharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CCE9EF28A272F600C0BD06 /* Сharacter.swift */; };
+		42F3F4812AAB5F7A00C2049F /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F3F4802AAB5F7A00C2049F /* ImageCacheManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		42CCE9E728A272D500C0BD06 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		42CCE9E928A272D500C0BD06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		42CCE9EF28A272F600C0BD06 /* Сharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Сharacter.swift"; sourceTree = "<group>"; };
+		42F3F4802AAB5F7A00C2049F /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 			isa = PBXGroup;
 			children = (
 				426FA11F28A51F540051C07C /* NetworkManager.swift */,
+				42F3F4802AAB5F7A00C2049F /* ImageCacheManager.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -206,6 +209,7 @@
 			files = (
 				42400D5528A508F200E9A598 /* СharactersViewController.swift in Sources */,
 				42400D5328A4FEB600E9A598 /* CharacterCell.swift in Sources */,
+				42F3F4812AAB5F7A00C2049F /* ImageCacheManager.swift in Sources */,
 				42CCE9E028A272D300C0BD06 /* DetailsViewController.swift in Sources */,
 				42748F272AA3BB52009A76A2 /* SpellsTableViewController.swift in Sources */,
 				426FA12028A51F540051C07C /* NetworkManager.swift in Sources */,

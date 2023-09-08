@@ -33,13 +33,23 @@ final class SpellsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SpellCell", for: indexPath)
-        let spell = spells[indexPath.row]
+        let spell = spells[indexPath.section]
         var content = cell.defaultContentConfiguration()
         content.text = spell.description
         cell.contentConfiguration = content
-
         return cell
     }
+
+    // MARK: - UITableViewDelegate
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let header = view as? UITableViewHeaderFooterView
+        header?.textLabel?.font = UIFont(name: "Helvetica-Bold", size: 18)
+    }
+
 
     // MARK: - Private function
     private func fetchSpell() {

@@ -28,13 +28,13 @@ final class DetailsViewController: UIViewController {
         imageView.layer.cornerRadius = 15
         imageView.contentMode = .scaleAspectFill
 
-        NetworkManager.shared.fetchImage(from: character.image) { [weak self] result in
-            switch result {
-            case .success(let imageCharacter):
-                self?.imageView.image = UIImage(data: imageCharacter)
-            case .failure(let error):
-                print(error)
-            }
-        }
+//        NetworkManager.shared.fetchImage(from: character.image) { [weak self] result in
+//            switch result {
+//            case .success(let imageCharacter):
+//                self?.imageView.image = UIImage(data: imageCharacter)
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
     }
 }
