@@ -21,7 +21,8 @@ final class DetailsViewController: UIViewController {
         configure(with: character)
     }
 
-    func configure(with character: Character) {
+    // MARK: - Private func
+    private func configure(with character: Character) {
         nameLabel.text = character.name
         descriptionLabel.text = "\nhouse: \(character.house) \nwand: \(character.wand.wood) \nactor: \(character.actor )"
 

@@ -127,9 +127,9 @@
 		42CCE9DA28A272D300C0BD06 /* HarryPotterСharacters */ = {
 			isa = PBXGroup;
 			children = (
-				42F3F4822AAB769000C2049F /* Views */,
 				429508D228A2E3E600FFAA8C /* App */,
 				429508CF28A2E32E00FFAA8C /* ViewControllers */,
+				42F3F4822AAB769000C2049F /* Views */,
 				429508D128A2E3C200FFAA8C /* Models */,
 				426FA12128A51F950051C07C /* Service */,
 				429508D028A2E34F00FFAA8C /* Storyboards */,
