@@ -23,8 +23,11 @@ final class CharacterCell: UICollectionViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+
         activityIndicator = ActivityIndicator().showSpinner(in: characterImageView)
+        layoutActivityIndicator()
     }
+
 
     func imageCongigure(with character: Character) {
         nameCharacterLabel.text = character.name
@@ -71,5 +74,14 @@ final class CharacterCell: UICollectionViewCell {
                 print(error)
             }
         }
+    }
+
+    private func layoutActivityIndicator(){
+        guard let activityIndicator = activityIndicator else { return }
+
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: characterImageView.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: characterImageView.centerYAnchor)
+        ])
     }
 }

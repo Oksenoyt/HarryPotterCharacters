@@ -15,9 +15,11 @@ final class ActivityIndicator {
         let activityIndicator = UIActivityIndicatorView(style: .medium)
         activityIndicator.color = .white
         activityIndicator.startAnimating()
-        activityIndicator.center = view.center
         activityIndicator.hidesWhenStopped = true
+
         view.addSubview(activityIndicator)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+
         return activityIndicator
     }
 }

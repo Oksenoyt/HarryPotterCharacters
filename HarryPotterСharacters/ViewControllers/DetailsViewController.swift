@@ -28,10 +28,11 @@ final class DetailsViewController: UIViewController {
         nameLabel.text = character.name
         descriptionLabel.text = "\nhouse: \(character.house) \nwand: \(character.wand.wood) \nactor: \(character.actor )"
 
+        activityIndicator = ActivityIndicator().showSpinner(in: imageView)
+        layoutActivityIndicator()
+
         imageView.layer.cornerRadius = 15
         imageView.contentMode = .scaleAspectFill
-
-        activityIndicator = ActivityIndicator().showSpinner(in: imageView)
         getImage(from: character.image)
     }
 
@@ -60,5 +61,14 @@ final class DetailsViewController: UIViewController {
                 print(error)
             }
         }
+    }
+
+    private func layoutActivityIndicator(){
+        guard let activityIndicator = activityIndicator else { return }
+
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: imageView.centerYAnchor)
+        ])
     }
 }
