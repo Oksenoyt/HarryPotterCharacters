@@ -14,10 +14,10 @@ final class DetailsViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     
     var character: Character!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         configure(with: character)
     }
 
@@ -28,13 +28,31 @@ final class DetailsViewController: UIViewController {
         imageView.layer.cornerRadius = 15
         imageView.contentMode = .scaleAspectFill
 
-//        NetworkManager.shared.fetchImage(from: character.image) { [weak self] result in
-//            switch result {
-//            case .success(let imageCharacter):
-//                self?.imageView.image = UIImage(data: imageCharacter)
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
+        getImage(from: character.image)
+    }
+
+    private func getImage(from url: String) {
+        guard let imageURL = URL(string: character.image) else { return }
+
+        if let cahcedImage = ImageCacheManager.shared.object(forKey: imageURL.lastPathComponent as NSString) {
+            imageView.image = cahcedImage
+            return
+        }
+
+        NetworkManager.shared.fetchImage(from: imageURL) { [weak self] result in
+            switch result {
+            case .success(let imageData):
+                guard let uiImage = UIImage(data: imageData) else {
+                    print(NetworkError.decodingError)
+                    return
+                }
+
+                ImageCacheManager.shared.setObject(uiImage, forKey: imageURL.lastPathComponent as NSString)
+                self?.imageView.image = uiImage
+
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }

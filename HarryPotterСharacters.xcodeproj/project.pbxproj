@@ -20,6 +20,7 @@
 		42CCE9E828A272D500C0BD06 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42CCE9E628A272D500C0BD06 /* LaunchScreen.storyboard */; };
 		42CCE9F028A272F600C0BD06 /* Сharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CCE9EF28A272F600C0BD06 /* Сharacter.swift */; };
 		42F3F4812AAB5F7A00C2049F /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F3F4802AAB5F7A00C2049F /* ImageCacheManager.swift */; };
+		42F3F4842AAB76A600C2049F /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F3F4832AAB76A600C2049F /* ActivityIndicator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		42CCE9E928A272D500C0BD06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		42CCE9EF28A272F600C0BD06 /* Сharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Сharacter.swift"; sourceTree = "<group>"; };
 		42F3F4802AAB5F7A00C2049F /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
+		42F3F4832AAB76A600C2049F /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +127,7 @@
 		42CCE9DA28A272D300C0BD06 /* HarryPotterСharacters */ = {
 			isa = PBXGroup;
 			children = (
+				42F3F4822AAB769000C2049F /* Views */,
 				429508D228A2E3E600FFAA8C /* App */,
 				429508CF28A2E32E00FFAA8C /* ViewControllers */,
 				429508D128A2E3C200FFAA8C /* Models */,
@@ -134,6 +137,14 @@
 				42CCE9E928A272D500C0BD06 /* Info.plist */,
 			);
 			path = "HarryPotterСharacters";
+			sourceTree = "<group>";
+		};
+		42F3F4822AAB769000C2049F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				42F3F4832AAB76A600C2049F /* ActivityIndicator.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -216,6 +227,7 @@
 				42CCE9F028A272F600C0BD06 /* Сharacter.swift in Sources */,
 				42CCE9DC28A272D300C0BD06 /* AppDelegate.swift in Sources */,
 				42748F252AA3B95F009A76A2 /* Spell.swift in Sources */,
+				42F3F4842AAB76A600C2049F /* ActivityIndicator.swift in Sources */,
 				42CCE9DE28A272D300C0BD06 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
