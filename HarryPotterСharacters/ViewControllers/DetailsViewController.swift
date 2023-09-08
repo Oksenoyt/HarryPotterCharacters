@@ -15,16 +15,16 @@ final class DetailsViewController: UIViewController {
 
     private var activityIndicator: UIActivityIndicatorView?
     
-//    var character: Character!
-//
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//        configure(with: character)
-//    }
+    var character: Character!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        configure(with: character)
+    }
 
     // MARK: - Private function
-     func configure(with character: Character) {
+    private func configure(with character: Character) {
         nameLabel.text = character.name
         descriptionLabel.text = "\nhouse: \(character.house) \nwand: \(character.wand.wood) \nactor: \(character.actor )"
 
