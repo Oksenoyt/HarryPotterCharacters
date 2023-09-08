@@ -6,7 +6,9 @@ _____________________________________
 - UICollectionViewCell
 - UITableViewController
 - Singleton (NetworkManager)
-- Request data using generic, URLSession
+- URLSession, request data using generic, URLSession
+- NSCache 
+- UIActivityIndicatorView
 - MVC
 
 API: https://hp-api.onrender.com
