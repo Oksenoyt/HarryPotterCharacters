@@ -58,17 +58,22 @@ final class SpellsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header = view as? UITableViewHeaderFooterView
+
         header?.textLabel?.font = UIFont(name: "Helvetica-Bold", size: 18)
+        header?.textLabel?.numberOfLines = 0
+        header?.textLabel?.lineBreakMode = .byWordWrapping
     }
 
 
     // MARK: - Private function
     private func fetchSpell() {
         NetworkManager.shared.fetch([Spell].self, from: Link.spells.rawValue) { [weak self] result in
+            guard let self else { return }
+
             switch result {
             case .success(let spells):
-                self?.spells = spells
-                self?.tableView.reloadData()
+                self.spells = spells
+                tableView.reloadData()
             case .failure(let error):
                 print(error)
             }
@@ -91,7 +96,7 @@ extension SpellsTableViewController: UISearchBarDelegate {
     }
 
     private func filterContentForSearchText(_ searchText: String) {
-            filteredSpells = spells.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+        filteredSpells = spells.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
         tableView.reloadData()
     }
 }
