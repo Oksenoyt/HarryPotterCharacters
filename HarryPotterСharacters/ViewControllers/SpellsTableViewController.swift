@@ -8,21 +8,33 @@
 import UIKit
 
 final class SpellsTableViewController: UITableViewController {
-    private var spells: [Spell] = []
 
+    @IBOutlet weak var searchBar: UISearchBar!
+
+    private var spells: [Spell] = []
+    private var filteredSpells: [Spell] = []
+    private var currentSpells: [Spell] {
+        searchBarIsEmpty ? spells : filteredSpells
+    }
+
+    private var searchBarIsEmpty: Bool {
+        guard let text = searchBar.text else { return true }
+        return text.isEmpty
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchBar.delegate = self
         fetchSpell()
     }
 
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
-        spells.count
+        currentSpells.count
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        spells[section].name
+        currentSpells[section].name
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -32,7 +44,7 @@ final class SpellsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SpellCell", for: indexPath)
-        let spell = spells[indexPath.section]
+        let spell = currentSpells[indexPath.section]
         var content = cell.defaultContentConfiguration()
         content.text = spell.description
         cell.contentConfiguration = content
@@ -63,4 +75,23 @@ final class SpellsTableViewController: UITableViewController {
         }
     }
 
+}
+
+// MARK: - UISearchBarDelegate
+extension SpellsTableViewController: UISearchBarDelegate {
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredSpells.removeAll()
+
+        guard searchText != "" else {
+            tableView.reloadData()
+            return }
+
+        filterContentForSearchText(searchText)
+    }
+
+    private func filterContentForSearchText(_ searchText: String) {
+            filteredSpells = spells.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+        tableView.reloadData()
+    }
 }
