@@ -40,11 +40,13 @@ final class CharacterCell: UICollectionViewCell {
         guard let url = imageURL else { return }
 
         getImage(from: url) { [weak self] result in
+            guard let self else { return }
+
             switch result {
             case .success(let image):
-                if url == self?.imageURL {
-                    self?.characterImageView.image = image
-                    self?.activityIndicator?.stopAnimating()
+                if url == imageURL {
+                    characterImageView.image = image
+                    activityIndicator?.stopAnimating()
                 }
             case .failure(let error):
                 print(error)

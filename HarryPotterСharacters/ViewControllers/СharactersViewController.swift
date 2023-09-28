@@ -58,12 +58,14 @@ final class CollectionViewController: UICollectionViewController {
     // MARK: - Private function
     private func fetchData() {
         NetworkManager.shared.fetch([Character].self, from: Link.character.rawValue) { [weak self] result in
+            guard let self else { return }
+
             switch result {
-            case .success(let characters):
-                self?.characters = characters.filter { $0.image != "" }
+            case .success(let charactersList):
+                characters = charactersList.filter { $0.image != "" }
                 DispatchQueue.main.async {
-                    self?.collectionView.reloadData()
-                    self?.collectionView.refreshControl?.endRefreshing()
+                    self.collectionView.reloadData()
+                    self.collectionView.refreshControl?.endRefreshing()
                 }
             case .failure(let error):
                 print(error)

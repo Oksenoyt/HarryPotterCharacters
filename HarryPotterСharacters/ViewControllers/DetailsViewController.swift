@@ -47,6 +47,8 @@ final class DetailsViewController: UIViewController {
         }
 
         NetworkManager.shared.fetchImage(from: imageURL) { [weak self] result in
+            guard let self else { return }
+
             switch result {
             case .success(let imageData):
                 guard let uiImage = UIImage(data: imageData) else {
@@ -55,8 +57,8 @@ final class DetailsViewController: UIViewController {
                 }
 
                 ImageCacheManager.shared.setObject(uiImage, forKey: imageURL.lastPathComponent as NSString)
-                self?.imageView.image = uiImage
-                self?.activityIndicator?.stopAnimating()
+                imageView.image = uiImage
+                activityIndicator?.stopAnimating()
             case .failure(let error):
                 print(error)
             }
