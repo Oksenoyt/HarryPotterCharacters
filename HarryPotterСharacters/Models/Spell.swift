@@ -11,4 +11,5 @@ struct Spell: Decodable {
 
     let name: String
     let description: String
+    var favorites: Bool?
 }

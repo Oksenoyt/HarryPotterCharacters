@@ -13,8 +13,14 @@ final class SpellsTableViewController: UITableViewController {
 
     private var spells: [Spell] = []
     private var filteredSpells: [Spell] = []
-    private var currentSpells: [Spell] {
-        searchBarIsEmpty ? spells : filteredSpells
+    private var nonFavoriteSpells: [Spell] {
+        searchBarIsEmpty
+        ? spells.filter { $0.favorites == false }
+        : filteredSpells
+    }
+
+    private var favoritesSpell: [Spell] {
+        spells.filter { $0.favorites == true }
     }
 
     private var searchBarIsEmpty: Bool {
@@ -30,24 +36,52 @@ final class SpellsTableViewController: UITableViewController {
 
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
-        currentSpells.count
+        return favoritesSpell.count == 0 ? 1 : 2
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        currentSpells[section].name
+        if favoritesSpell.count > 0 {
+            return section == 0 ? "Favorites" : "All spells"
+        } else {
+            return "All spells"
+        }
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        if favoritesSpell.count > 0 {
+            if section == 0 {
+                return favoritesSpell.count
+            } else {
+                return nonFavoriteSpells.count
+            }
+        } else {
+            return nonFavoriteSpells.count
+        }
     }
 
-
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SpellCell", for: indexPath)
-        let spell = currentSpells[indexPath.section]
-        var content = cell.defaultContentConfiguration()
-        content.text = spell.description
-        cell.contentConfiguration = content
+        guard
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: "spellCell",
+                for: indexPath
+            ) as? SpellsTableViewCell
+        else {
+            return UITableViewCell()
+        }
+
+        if favoritesSpell.count > 0 {
+            if indexPath.section == 0 {
+                let favoriteSpell = favoritesSpell[indexPath.row]
+                cell.configure(for: favoriteSpell)
+            } else {
+                let spell = nonFavoriteSpells[indexPath.row]
+                cell.configure(for: spell)
+            }
+        } else {
+            let allSpell = nonFavoriteSpells[indexPath.row]
+            cell.textLabel?.text = allSpell.name
+        }
+
         return cell
     }
 
@@ -73,6 +107,7 @@ final class SpellsTableViewController: UITableViewController {
             switch result {
             case .success(let spells):
                 self.spells = spells
+                setFavorites()
                 tableView.reloadData()
             case .failure(let error):
                 print(error)
@@ -80,6 +115,14 @@ final class SpellsTableViewController: UITableViewController {
         }
     }
 
+    private func setFavorites() {
+        let favorites = StorageManager.shared.fetch()
+
+        for index in 0..<spells.count {
+            let isFavorite = favorites.contains { $0.contains(spells[index].name) }
+            spells[index].favorites = isFavorite
+        }
+    }
 }
 
 // MARK: - UISearchBarDelegate

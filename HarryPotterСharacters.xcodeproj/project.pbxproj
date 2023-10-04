@@ -12,6 +12,8 @@
 		426FA12028A51F540051C07C /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426FA11F28A51F540051C07C /* NetworkManager.swift */; };
 		42748F252AA3B95F009A76A2 /* Spell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42748F242AA3B95F009A76A2 /* Spell.swift */; };
 		42748F272AA3BB52009A76A2 /* SpellsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42748F262AA3BB52009A76A2 /* SpellsTableViewController.swift */; };
+		4287D7232ACC9DDD00308AFD /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4287D7222ACC9DDD00308AFD /* StorageManager.swift */; };
+		42A18FE82ACC916100D47BEA /* SpellsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A18FE72ACC916100D47BEA /* SpellsTableViewCell.swift */; };
 		42CCE9DC28A272D300C0BD06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CCE9DB28A272D300C0BD06 /* AppDelegate.swift */; };
 		42CCE9DE28A272D300C0BD06 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CCE9DD28A272D300C0BD06 /* SceneDelegate.swift */; };
 		42CCE9E028A272D300C0BD06 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CCE9DF28A272D300C0BD06 /* DetailsViewController.swift */; };
@@ -29,6 +31,8 @@
 		426FA11F28A51F540051C07C /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		42748F242AA3B95F009A76A2 /* Spell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spell.swift; sourceTree = "<group>"; };
 		42748F262AA3BB52009A76A2 /* SpellsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpellsTableViewController.swift; sourceTree = "<group>"; };
+		4287D7222ACC9DDD00308AFD /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		42A18FE72ACC916100D47BEA /* SpellsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpellsTableViewCell.swift; sourceTree = "<group>"; };
 		42CCE9D828A272D300C0BD06 /* HarryPotterСharacters.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HarryPotterСharacters.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		42CCE9DB28A272D300C0BD06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		42CCE9DD28A272D300C0BD06 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -58,6 +62,7 @@
 			children = (
 				426FA11F28A51F540051C07C /* NetworkManager.swift */,
 				42F3F4802AAB5F7A00C2049F /* ImageCacheManager.swift */,
+				4287D7222ACC9DDD00308AFD /* StorageManager.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -69,6 +74,7 @@
 				42400D5228A4FEB600E9A598 /* CharacterCell.swift */,
 				42400D5428A508F200E9A598 /* СharactersViewController.swift */,
 				42748F262AA3BB52009A76A2 /* SpellsTableViewController.swift */,
+				42A18FE72ACC916100D47BEA /* SpellsTableViewCell.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -228,7 +234,9 @@
 				42CCE9DC28A272D300C0BD06 /* AppDelegate.swift in Sources */,
 				42748F252AA3B95F009A76A2 /* Spell.swift in Sources */,
 				42F3F4842AAB76A600C2049F /* ActivityIndicator.swift in Sources */,
+				42A18FE82ACC916100D47BEA /* SpellsTableViewCell.swift in Sources */,
 				42CCE9DE28A272D300C0BD06 /* SceneDelegate.swift in Sources */,
+				4287D7232ACC9DDD00308AFD /* StorageManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
