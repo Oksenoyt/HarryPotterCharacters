@@ -29,7 +29,7 @@ final class CharacterCell: UICollectionViewCell {
     }
 
 
-    func imageCongigure(with character: Character) {
+    func congigure(with character: Character) {
         nameCharacterLabel.text = character.name
         imageURL = URL(string: character.image)
         layer.cornerRadius = 10
