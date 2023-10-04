@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+struct Wand: Decodable {
+    let wood: String
+    let core: String
+}

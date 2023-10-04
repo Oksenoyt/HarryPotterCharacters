@@ -15,7 +15,7 @@ enum Link: String {
 
 final class CollectionViewController: UICollectionViewController {
 
-    var characters: [Character] = []
+    private var characters: [Character] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +25,11 @@ final class CollectionViewController: UICollectionViewController {
 
         setupRefreshControl()
     }
-    
+
+    @objc private func refreshData(_ sender: UIRefreshControl) {
+        fetchData()
+    }
+
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let detailsVC = segue.destination as? DetailsViewController else { return }
@@ -50,7 +54,7 @@ final class CollectionViewController: UICollectionViewController {
         }
         
         let character = characters[indexPath.row]
-        cell.imageCongigure(with: character)
+        cell.congigure(with: character)
         
         return cell
     }
@@ -71,10 +75,6 @@ final class CollectionViewController: UICollectionViewController {
                 print(error)
             }
         }
-    }
-
-    @objc private func refreshData(_ sender: UIRefreshControl) {
-        fetchData()
     }
 
     private func setupRefreshControl() {

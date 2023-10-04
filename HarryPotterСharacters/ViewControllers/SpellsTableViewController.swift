@@ -41,7 +41,6 @@ final class SpellsTableViewController: UITableViewController {
         return 1
     }
 
-
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SpellCell", for: indexPath)
         let spell = currentSpells[indexPath.section]
@@ -64,7 +63,6 @@ final class SpellsTableViewController: UITableViewController {
         header?.textLabel?.lineBreakMode = .byWordWrapping
     }
 
-
     // MARK: - Private function
     private func fetchSpell() {
         NetworkManager.shared.fetch([Spell].self, from: Link.spells.rawValue) { [weak self] result in
@@ -79,7 +77,6 @@ final class SpellsTableViewController: UITableViewController {
             }
         }
     }
-
 }
 
 // MARK: - UISearchBarDelegate
