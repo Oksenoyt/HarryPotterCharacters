@@ -17,11 +17,6 @@ class SpellsTableViewCell: UITableViewCell {
     private var spellIsFavorites = false
     private var currentSpell: Spell?
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
     @IBAction func favoritesButtonAction(_ sender: Any) {
         guard let spell = currentSpell else { return }
 
@@ -31,12 +26,6 @@ class SpellsTableViewCell: UITableViewCell {
 
         spellIsFavorites.toggle()
         setFavoritesButtonImage()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
     func configure(for spell: Spell) {

@@ -36,27 +36,23 @@ final class SpellsTableViewController: UITableViewController {
 
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return favoritesSpell.count == 0 ? 1 : 2
+        favoritesSpell.count == 0 ? 1 : 2
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if favoritesSpell.count > 0 {
-            return section == 0 ? "Favorites" : "All spells"
+            return section == 0 ? "Favorites spells" : "Spells"
         } else {
-            return "All spells"
+            return "Spells"
         }
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if favoritesSpell.count > 0 {
-            if section == 0 {
-                return favoritesSpell.count
-            } else {
-                return nonFavoriteSpells.count
-            }
-        } else {
-            return nonFavoriteSpells.count
-        }
+        if favoritesSpell.count > 0 && section == 0 {
+             return favoritesSpell.count
+         } else {
+             return nonFavoriteSpells.count
+         }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -78,8 +74,8 @@ final class SpellsTableViewController: UITableViewController {
                 cell.configure(for: spell)
             }
         } else {
-            let allSpell = nonFavoriteSpells[indexPath.row]
-            cell.textLabel?.text = allSpell.name
+            let spell = nonFavoriteSpells[indexPath.row]
+            cell.configure(for: spell)
         }
 
         return cell
@@ -93,9 +89,10 @@ final class SpellsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header = view as? UITableViewHeaderFooterView
 
-        header?.textLabel?.font = UIFont(name: "Helvetica-Bold", size: 18)
+        header?.textLabel?.font = UIFont(name: "Helvetica-Bold", size: 22)
         header?.textLabel?.numberOfLines = 0
         header?.textLabel?.lineBreakMode = .byWordWrapping
+        header?.textLabel?.textColor = UIColor.black
     }
 
 

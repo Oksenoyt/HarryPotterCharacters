@@ -50,7 +50,7 @@ final class CollectionViewController: UICollectionViewController {
         }
         
         let character = characters[indexPath.row]
-        cell.imageCongigure(with: character)
+        cell.сongigure(with: character)
         
         return cell
     }
