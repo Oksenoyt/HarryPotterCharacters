@@ -1,4 +1,4 @@
-# HarryPotterHaracters test project UIKit
+# HarryPotterCharacters test project UIKit
 _____________________________________
 
 ### Working with:
