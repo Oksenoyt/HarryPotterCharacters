@@ -49,10 +49,10 @@ final class SpellsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if favoritesSpell.count > 0 && section == 0 {
-             return favoritesSpell.count
-         } else {
-             return nonFavoriteSpells.count
-         }
+            return favoritesSpell.count
+        } else {
+            return nonFavoriteSpells.count
+        }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -116,8 +116,8 @@ final class SpellsTableViewController: UITableViewController {
         let favorites = StorageManager.shared.fetch()
 
         for index in 0..<spells.count {
-            let isFavorite = favorites.contains { $0.contains(spells[index].name) }
-            spells[index].favorites = isFavorite
+            let isFavorites = favorites.contains { $0.contains(spells[index].name) }
+            spells[index].favorites = isFavorites
         }
     }
 }
