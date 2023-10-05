@@ -7,12 +7,6 @@
 
 import UIKit
 
-enum Link: String {
-    case character = "https://hp-api.onrender.com/api/characters"
-    case spells = "https://hp-api.onrender.com/api/spells"
-}
-
-
 final class CollectionViewController: UICollectionViewController {
 
     private var characters: [Character] = []
@@ -26,23 +20,21 @@ final class CollectionViewController: UICollectionViewController {
         setupRefreshControl()
     }
 
+    @IBAction func SpellsButtonAction(_ sender: Any) {
+        let spellsVC = SpellsTableViewController.instantiate()
+        let navigationController = UINavigationController(rootViewController: spellsVC)
+        present(navigationController, animated: true, completion: nil)
+    }
+
     @objc private func refreshData(_ sender: UIRefreshControl) {
         fetchData()
     }
 
-    // MARK: - Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let detailsVC = segue.destination as? DetailsViewController else { return }
-        guard let cell = sender as? UICollectionViewCell else { return }
-        guard let inpexPatx = collectionView.indexPath(for: cell) else { return }
-        detailsVC.character = characters[inpexPatx.row]
-    }
-    
     // MARK: UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         characters.count
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard
             let cell = collectionView.dequeueReusableCell(
@@ -52,21 +44,20 @@ final class CollectionViewController: UICollectionViewController {
         else {
             return UICollectionViewCell()
         }
-        
+
         let character = characters[indexPath.row]
         cell.congigure(with: character)
-        
+
         return cell
     }
 
     // MARK: - Private function
     private func fetchData() {
-        NetworkManager.shared.fetch([Character].self, from: Link.character.rawValue) { [weak self] result in
+        NetworkManager.shared.getCharacters { [weak self] result in
             guard let self else { return }
-
             switch result {
-            case .success(let charactersList):
-                characters = charactersList.filter { $0.image != "" }
+            case .success(let characterList):
+                characters = characterList
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
                     self.collectionView.refreshControl?.endRefreshing()
@@ -87,6 +78,12 @@ final class CollectionViewController: UICollectionViewController {
             string: "Pull to refresh",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray]
         )
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let detaleVC = DetailsViewController.instantiate()
+        detaleVC.character = characters[indexPath.row]
+        navigationController?.pushViewController(detaleVC, animated: true)
     }
 }
 

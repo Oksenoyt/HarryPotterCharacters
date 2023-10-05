@@ -7,6 +7,11 @@
 
 import Foundation
 
+enum Link: String {
+    case character = "https://hp-api.onrender.com/api/characters"
+    case spells = "https://hp-api.onrender.com/api/spells"
+}
+
 enum NetworkError: Error {
     case invalidURL
     case noDate
@@ -15,9 +20,34 @@ enum NetworkError: Error {
 
 final class NetworkManager {
     static let shared = NetworkManager()
-    
+
     private init() {}
-    
+
+    func getCharacters(completion: @escaping(Result<[Character], NetworkError>) ->  Void) {
+        fetch([Character].self, from: Link.character.rawValue) { result in
+
+            switch result {
+            case .success(let charactersList):
+                let characters = charactersList.filter { $0.image != "" }
+                completion(.success(characters))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
+    func getSpells(completion: @escaping(Result<[Spell], NetworkError>) ->  Void) {
+        fetch([Spell].self, from: Link.spells.rawValue) { result in
+            switch result {
+            case .success(let spells):
+                completion(.success(spells))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
+    // MARK: - Private function
     func fetchImage(from url: URL, completion: @escaping(Result<Data, NetworkError>) ->  Void) {
         DispatchQueue.global().async {
             guard let imageDate = try? Data(contentsOf: url) else {
@@ -29,13 +59,13 @@ final class NetworkManager {
             }
         }
     }
-    
-    func fetch<T: Decodable>(_ type: T.Type, from url: String, completion: @escaping(Result<T, NetworkError>) ->  Void) {
+
+   private func fetch<T: Decodable>(_ type: T.Type, from url: String, completion: @escaping(Result<T, NetworkError>) ->  Void) {
         guard let url = URL(string: url) else {
             completion(.failure(.invalidURL))
             return
         }
-        
+
         URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data else {
                 completion(.failure(.noDate))

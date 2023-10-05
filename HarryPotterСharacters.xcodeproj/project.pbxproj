@@ -10,6 +10,7 @@
 		42400D5328A4FEB600E9A598 /* CharacterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42400D5228A4FEB600E9A598 /* CharacterCell.swift */; };
 		42400D5528A508F200E9A598 /* СharactersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42400D5428A508F200E9A598 /* СharactersViewController.swift */; };
 		4265388F2ACD9D6100C7809C /* Wand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4265388E2ACD9D6100C7809C /* Wand.swift */; };
+		426538952ACE43C000C7809C /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426538942ACE43C000C7809C /* Storyboarded.swift */; };
 		426FA12028A51F540051C07C /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426FA11F28A51F540051C07C /* NetworkManager.swift */; };
 		42748F252AA3B95F009A76A2 /* Spell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42748F242AA3B95F009A76A2 /* Spell.swift */; };
 		42748F272AA3BB52009A76A2 /* SpellsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42748F262AA3BB52009A76A2 /* SpellsTableViewController.swift */; };
@@ -28,6 +29,7 @@
 		42400D5228A4FEB600E9A598 /* CharacterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterCell.swift; sourceTree = "<group>"; };
 		42400D5428A508F200E9A598 /* СharactersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "СharactersViewController.swift"; sourceTree = "<group>"; };
 		4265388E2ACD9D6100C7809C /* Wand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wand.swift; sourceTree = "<group>"; };
+		426538942ACE43C000C7809C /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
 		426FA11F28A51F540051C07C /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		42748F242AA3B95F009A76A2 /* Spell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spell.swift; sourceTree = "<group>"; };
 		42748F262AA3BB52009A76A2 /* SpellsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpellsTableViewController.swift; sourceTree = "<group>"; };
@@ -55,6 +57,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		426538932ACE43A000C7809C /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				426538942ACE43C000C7809C /* Storyboarded.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		426FA12128A51F950051C07C /* Service */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +140,7 @@
 		42CCE9DA28A272D300C0BD06 /* HarryPotterСharacters */ = {
 			isa = PBXGroup;
 			children = (
+				426538932ACE43A000C7809C /* Protocols */,
 				429508D228A2E3E600FFAA8C /* App */,
 				429508CF28A2E32E00FFAA8C /* ViewControllers */,
 				42F3F4822AAB769000C2049F /* Views */,
@@ -226,6 +237,7 @@
 				42F3F4812AAB5F7A00C2049F /* ImageCacheManager.swift in Sources */,
 				42CCE9E028A272D300C0BD06 /* DetailsViewController.swift in Sources */,
 				42748F272AA3BB52009A76A2 /* SpellsTableViewController.swift in Sources */,
+				426538952ACE43C000C7809C /* Storyboarded.swift in Sources */,
 				426FA12028A51F540051C07C /* NetworkManager.swift in Sources */,
 				42CCE9F028A272F600C0BD06 /* Сharacter.swift in Sources */,
 				4265388F2ACD9D6100C7809C /* Wand.swift in Sources */,

@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class SpellsTableViewController: UITableViewController {
+final class SpellsTableViewController: UITableViewController, Storyboarded {
 
     @IBOutlet weak var searchBar: UISearchBar!
 
@@ -65,7 +65,8 @@ final class SpellsTableViewController: UITableViewController {
 
     // MARK: - Private function
     private func fetchSpell() {
-        NetworkManager.shared.fetch([Spell].self, from: Link.spells.rawValue) { [weak self] result in
+
+        NetworkManager.shared.getSpells { [weak self] result in
             guard let self else { return }
 
             switch result {

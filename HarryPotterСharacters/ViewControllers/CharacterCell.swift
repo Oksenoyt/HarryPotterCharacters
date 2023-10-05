@@ -9,8 +9,8 @@ import UIKit
 
 final class CharacterCell: UICollectionViewCell {
 
-    @IBOutlet weak var characterImageView: UIImageView!
-    @IBOutlet weak var nameCharacterLabel: UILabel!
+    @IBOutlet private weak var characterImageView: UIImageView!
+    @IBOutlet private weak var nameCharacterLabel: UILabel!
 
     private var activityIndicator: UIActivityIndicatorView?
 

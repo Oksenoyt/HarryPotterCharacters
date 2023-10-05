@@ -7,14 +7,14 @@
 
 import UIKit
 
-final class DetailsViewController: UIViewController {
-    
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
+final class DetailsViewController: UIViewController, Storyboarded {
+
+    @IBOutlet private weak var imageView: UIImageView!
+    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var descriptionLabel: UILabel!
 
     private var activityIndicator: UIActivityIndicatorView?
-    
+
     var character: Character!
 
     override func viewDidLoad() {
