@@ -9,8 +9,8 @@ import UIKit
 
 final class CharacterCell: UICollectionViewCell {
 
-    @IBOutlet weak var characterImageView: UIImageView!
-    @IBOutlet weak var nameCharacterLabel: UILabel!
+    @IBOutlet private weak var characterImageView: UIImageView!
+    @IBOutlet private weak var nameCharacterLabel: UILabel!
 
     private var activityIndicator: UIActivityIndicatorView?
 
@@ -29,7 +29,7 @@ final class CharacterCell: UICollectionViewCell {
     }
 
 
-    func сongigure(with character: Character) {
+    func congigure(with character: Character) {
         nameCharacterLabel.text = character.name
         imageURL = URL(string: character.image)
         layer.cornerRadius = 10
