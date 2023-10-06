@@ -104,7 +104,7 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="c5S-tj-bpu">
                                             <rect key="frame" x="12" y="12" width="296" height="86"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="168" translatesAutoresizingMaskIntoConstraints="NO" id="yYz-GJ-zkc">
+                                                <stackView opaque="NO" contentMode="scaleAspectFill" distribution="fillProportionally" alignment="center" spacing="168" translatesAutoresizingMaskIntoConstraints="NO" id="yYz-GJ-zkc">
                                                     <rect key="frame" x="0.0" y="0.0" width="296" height="25"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Qasdasdasd" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VyA-UB-ASf">

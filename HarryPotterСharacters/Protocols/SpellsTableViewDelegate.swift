@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+protocol SpellsTableViewDelegate {
+    func refreshFavorites(from spell: Spell) 
+}

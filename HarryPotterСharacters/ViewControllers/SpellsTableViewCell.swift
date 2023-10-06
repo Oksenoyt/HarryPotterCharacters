@@ -16,13 +16,17 @@ class SpellsTableViewCell: UITableViewCell {
     private let storageManager = StorageManager.shared
     private var spellIsFavorites = false
     private var currentSpell: Spell?
+    var delegate: SpellsTableViewDelegate?
 
     @IBAction func favoritesButtonAction(_ sender: Any) {
-        guard let spell = currentSpell else { return }
+        guard var spell = currentSpell else { return }
+        spell.favorites?.toggle()
 
         spellIsFavorites
         ? storageManager.remove(spell: spell.name)
         : storageManager.save(spell: spell.name)
+
+        delegate?.refreshFavorites(from: spell)
 
         spellIsFavorites.toggle()
         setFavoritesButtonImage()
