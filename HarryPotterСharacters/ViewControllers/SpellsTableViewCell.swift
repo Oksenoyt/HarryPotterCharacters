@@ -7,11 +7,11 @@
 
 import UIKit
 
-class SpellsTableViewCell: UITableViewCell {
+final class SpellsTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var favoritesButton: UIButton!
-    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var favoritesButton: UIButton!
+    @IBOutlet private weak var descriptionLabel: UILabel!
 
     private let storageManager = StorageManager.shared
     private var spellIsFavorites = false

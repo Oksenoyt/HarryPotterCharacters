@@ -44,11 +44,7 @@ final class SpellsTableViewController: UITableViewController, Storyboarded {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return favoritesSpell.count
-        } else {
-            return nonFavoriteSpells.count
-        }
+        section == 0 ? favoritesSpell.count : nonFavoriteSpells.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -149,9 +145,7 @@ extension SpellsTableViewController: SpellsTableViewDelegate {
         let indexPathTo = IndexPath(row: nonFavoriteSpells.count, section: 1)
 
         tableView.beginUpdates()
-        refrashSpells(from: spell)
-        print(indexPathFrom, "indexPathFrom")
-        print(indexPathTo, "indexPathTo")
+        refrashSpells(spell)
         tableView.deleteRows(at: [indexPathFrom], with: .fade)
         tableView.insertRows(at: [indexPathTo], with: .fade)
         tableView.endUpdates()
@@ -161,20 +155,21 @@ extension SpellsTableViewController: SpellsTableViewDelegate {
         guard let index = nonFavoriteSpells.firstIndex(where: { $0.name == spell.name }) else {
             return
         }
-
         let indexPathFrom = IndexPath(row: index, section: 1)
         let indexPathTo = IndexPath(row: favoritesSpell.count, section: 0)
 
         tableView.beginUpdates()
-        refrashSpells(from: spell)
-        print(indexPathFrom, "indexPathFrom")
-        print(indexPathTo, "indexPathTo")
+        refrashSpells(spell)
         tableView.deleteRows(at: [indexPathFrom], with: .fade)
         tableView.insertRows(at: [indexPathTo], with: .fade)
         tableView.endUpdates()
     }
 
-    private func refrashSpells(from spell: Spell) {
+    private func refrashSpells(_ spell: Spell) {
+        if let index = filteredSpells.firstIndex(where: { $0.name == spell.name }) {
+            filteredSpells.remove(at: index)
+        }
+
         if let index = spells.firstIndex(where: { $0.name == spell.name }) {
             spells[index] = spell
         } else {
