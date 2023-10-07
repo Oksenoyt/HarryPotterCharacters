@@ -81,9 +81,9 @@ final class CollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let detaleVC = DetailsViewController.instantiate()
-        detaleVC.character = characters[indexPath.row]
-        navigationController?.pushViewController(detaleVC, animated: true)
+        let detailVC = DetailsViewController.instantiate()
+        detailVC.character = characters[indexPath.row]
+        navigationController?.pushViewController(detailVC, animated: true)
     }
 }
 
