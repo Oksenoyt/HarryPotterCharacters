@@ -36,19 +36,15 @@ final class SpellsTableViewController: UITableViewController, Storyboarded {
 
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
-        favoritesSpell.count == 0 ? 1 : 2
+        2
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if favoritesSpell.count > 0 {
-            return section == 0 ? "Favorites spells" : "Spells"
-        } else {
-            return "Spells"
-        }
+        section == 0 ? "Favorites spells" : "Spells"
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if favoritesSpell.count > 0 && section == 0 {
+        if section == 0 {
             return favoritesSpell.count
         } else {
             return nonFavoriteSpells.count
@@ -65,14 +61,9 @@ final class SpellsTableViewController: UITableViewController, Storyboarded {
             return UITableViewCell()
         }
 
-        if favoritesSpell.count > 0 {
-            if indexPath.section == 0 {
-                let favoriteSpell = favoritesSpell[indexPath.row]
-                cell.configure(for: favoriteSpell)
-            } else {
-                let spell = nonFavoriteSpells[indexPath.row]
-                cell.configure(for: spell)
-            }
+        if indexPath.section == 0 {
+            let favoriteSpell = favoritesSpell[indexPath.row]
+            cell.configure(for: favoriteSpell)
         } else {
             let spell = nonFavoriteSpells[indexPath.row]
             cell.configure(for: spell)
@@ -139,6 +130,7 @@ extension SpellsTableViewController: UISearchBarDelegate {
     }
 }
 
+// MARK: - SpellsTableViewDelegate
 extension SpellsTableViewController: SpellsTableViewDelegate {
     func refreshFavorites(from spell: Spell) {
         guard let favorites = spell.favorites else { return }
