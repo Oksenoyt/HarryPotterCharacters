@@ -79,12 +79,13 @@ final class SpellsTableViewController: UITableViewController, Storyboarded {
     }
 
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        let header = view as? UITableViewHeaderFooterView
+        guard let header = view as? UITableViewHeaderFooterView else { return }
 
-        header?.textLabel?.font = UIFont(name: "Helvetica-Bold", size: 22)
-        header?.textLabel?.numberOfLines = 0
-        header?.textLabel?.lineBreakMode = .byWordWrapping
-        header?.textLabel?.textColor = UIColor.black
+        header.textLabel?.font = UIFont(name: "Helvetica-Bold", size: 22)
+        header.textLabel?.numberOfLines = 0
+        header.textLabel?.lineBreakMode = .byWordWrapping
+        header.textLabel?.textColor = UIColor.black
+        header.sizeToFit()
     }
 
     // MARK: - Private function
