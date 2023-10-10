@@ -1,14 +1,13 @@
 //
-//  Spell.swift
+//  SpellForParsingAPI.swift
 //  HarryPotterСharacters
 //
-//  Created by Oksenoyt on 02.09.2023.
+//  Created by Oksenoyt on 10.10.2023.
 //
 
 import Foundation
 
-struct Spell {
+struct SpellForParsingAPI: Decodable {
     let name: String
     let description: String
-    var isFavorites: Bool
 }

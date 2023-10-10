@@ -10,17 +10,18 @@ import UIKit
 final class SpellsTableViewController: UITableViewController, Storyboarded {
 
     @IBOutlet weak var searchBar: UISearchBar!
-
+    
+    private let storageManager = StorageManager.shared
     private var spells: [Spell] = []
     private var filteredSpells: [Spell] = []
     private var nonFavoriteSpells: [Spell] {
         searchBarIsEmpty
-        ? spells.filter { $0.favorites == false }
+        ? spells.filter { $0.isFavorites == false }
         : filteredSpells
     }
 
     private var favoritesSpell: [Spell] {
-        spells.filter { $0.favorites == true }
+        spells.filter { $0.isFavorites == true }
     }
 
     private var searchBarIsEmpty: Bool {
@@ -40,7 +41,11 @@ final class SpellsTableViewController: UITableViewController, Storyboarded {
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        section == 0 ? "Favorites spells" : "Spells"
+        if section == 0 {
+            return favoritesSpell.isEmpty ? nil : "Favorites spells"
+        } else {
+            return "Spells"
+        }
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -105,7 +110,7 @@ final class SpellsTableViewController: UITableViewController, Storyboarded {
 
         for index in 0..<spells.count {
             let isFavorites = favorites.contains { $0.contains(spells[index].name) }
-            spells[index].favorites = isFavorites
+            spells[index].isFavorites = isFavorites
         }
     }
 }
@@ -130,9 +135,11 @@ extension SpellsTableViewController: UISearchBarDelegate {
 // MARK: - SpellsTableViewDelegate
 extension SpellsTableViewController: SpellsTableViewDelegate {
     func refreshFavorites(from spell: Spell) {
-        guard let favorites = spell.favorites else { return }
+        spell.isFavorites
+        ? storageManager.remove(spell: spell.name)
+        : storageManager.save(spell: spell.name)
 
-        favorites
+        spell.isFavorites
         ? movingToFavoritesSpells(spell)
         : movingToAllSpells(spell)
     }
