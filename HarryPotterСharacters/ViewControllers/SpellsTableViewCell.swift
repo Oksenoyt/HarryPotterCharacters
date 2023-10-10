@@ -20,7 +20,6 @@ final class SpellsTableViewCell: UITableViewCell {
     @IBAction func favoritesButtonAction(_ sender: Any) {
         guard var spell = currentSpell else { return }
         spell.isFavorites.toggle()
-
         delegate?.refreshFavorites(from: spell)
 
         spellIsFavorites.toggle()

@@ -30,7 +30,7 @@ final class StorageManager {
     }
 
     func remove(spell: String) {
-        favoritesSpells = favoritesSpells.filter( { !$0.contains(spell)} )
+        favoritesSpells = favoritesSpells.filter { $0 != spell }
         defaults.set(favoritesSpells, forKey: favoritesKey)
     }
 

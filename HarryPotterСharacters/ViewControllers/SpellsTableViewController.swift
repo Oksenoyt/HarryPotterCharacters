@@ -107,9 +107,8 @@ final class SpellsTableViewController: UITableViewController, Storyboarded {
 
     private func setFavorites() {
         let favorites = StorageManager.shared.fetch()
-
         for index in 0..<spells.count {
-            let isFavorites = favorites.contains { $0.contains(spells[index].name) }
+            let isFavorites = favorites.contains { $0 == spells[index].id }
             spells[index].isFavorites = isFavorites
         }
     }
@@ -136,8 +135,8 @@ extension SpellsTableViewController: UISearchBarDelegate {
 extension SpellsTableViewController: SpellsTableViewDelegate {
     func refreshFavorites(from spell: Spell) {
         spell.isFavorites
-        ? storageManager.remove(spell: spell.name)
-        : storageManager.save(spell: spell.name)
+        ? storageManager.save(spell: spell.id)
+        : storageManager.remove(spell: spell.id)
 
         spell.isFavorites
         ? movingToFavoritesSpells(spell)

@@ -42,6 +42,7 @@ final class NetworkManager {
             case .success(let spellsTemp):
                let spells = spellsTemp.map { spell in
                     Spell(
+                        id: "\(spell.name)" + "\(spell.description.prefix(3))",
                         name: spell.name,
                         description: spell.description,
                         isFavorites: false
