@@ -26,7 +26,7 @@ final class DetailsViewController: UIViewController, Storyboarded {
     // MARK: - Private function
     private func configure(with character: Character) {
         nameLabel.text = character.name
-        descriptionLabel.text = "\nhouse: \(character.house) \nwand: \(character.wand.wood) \nactor: \(character.actor )"
+        descriptionLabel.text = String(localized: "\nhouse: \(character.house) \nwand: \(character.wand.wood) \nactor: \(character.actor )")
 
         activityIndicator = ActivityIndicator().showSpinner(in: imageView)
         layoutActivityIndicator()
