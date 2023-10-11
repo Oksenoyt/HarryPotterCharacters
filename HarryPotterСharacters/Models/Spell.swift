@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct Spell: Decodable {
-
+struct Spell {
+    let id: String
     let name: String
     let description: String
-    var favorites: Bool?
+    var isFavorites: Bool
 }

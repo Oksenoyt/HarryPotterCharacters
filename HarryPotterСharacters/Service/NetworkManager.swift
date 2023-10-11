@@ -37,9 +37,17 @@ final class NetworkManager {
     }
 
     func getSpells(completion: @escaping(Result<[Spell], NetworkError>) ->  Void) {
-        fetch([Spell].self, from: Link.spells.rawValue) { result in
+        fetch([SpellForParsingAPI].self, from: Link.spells.rawValue) { result in
             switch result {
-            case .success(let spells):
+            case .success(let spellsTemp):
+               let spells = spellsTemp.map { spell in
+                    Spell(
+                        id: "\(spell.name)" + "\(spell.description.prefix(3))",
+                        name: spell.name,
+                        description: spell.description,
+                        isFavorites: false
+                    )
+                }
                 completion(.success(spells))
             case .failure(let error):
                 completion(.failure(error))
@@ -60,7 +68,7 @@ final class NetworkManager {
         }
     }
 
-   private func fetch<T: Decodable>(_ type: T.Type, from url: String, completion: @escaping(Result<T, NetworkError>) ->  Void) {
+    private func fetch<T: Decodable>(_ type: T.Type, from url: String, completion: @escaping(Result<T, NetworkError>) ->  Void) {
         guard let url = URL(string: url) else {
             completion(.failure(.invalidURL))
             return

@@ -13,19 +13,13 @@ final class SpellsTableViewCell: UITableViewCell {
     @IBOutlet private weak var favoritesButton: UIButton!
     @IBOutlet private weak var descriptionLabel: UILabel!
 
-    private let storageManager = StorageManager.shared
     private var spellIsFavorites = false
     private var currentSpell: Spell?
     var delegate: SpellsTableViewDelegate?
 
     @IBAction func favoritesButtonAction(_ sender: Any) {
         guard var spell = currentSpell else { return }
-        spell.favorites?.toggle()
-
-        spellIsFavorites
-        ? storageManager.remove(spell: spell.name)
-        : storageManager.save(spell: spell.name)
-
+        spell.isFavorites.toggle()
         delegate?.refreshFavorites(from: spell)
 
         spellIsFavorites.toggle()
@@ -36,7 +30,7 @@ final class SpellsTableViewCell: UITableViewCell {
         currentSpell = spell
         titleLabel.text = spell.name
         descriptionLabel.text = spell.description
-        spellIsFavorites = spell.favorites ?? false
+        spellIsFavorites = spell.isFavorites
         setFavoritesButtonImage()
     }
 

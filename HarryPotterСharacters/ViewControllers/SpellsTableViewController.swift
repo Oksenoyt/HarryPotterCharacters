@@ -11,17 +11,11 @@ final class SpellsTableViewController: UITableViewController, Storyboarded {
 
     @IBOutlet weak var searchBar: UISearchBar!
 
+    private let storageManager = StorageManager.shared
     private var spells: [Spell] = []
     private var filteredSpells: [Spell] = []
-    private var nonFavoriteSpells: [Spell] {
-        searchBarIsEmpty
-        ? spells.filter { $0.favorites == false }
-        : filteredSpells
-    }
-
-    private var favoritesSpell: [Spell] {
-        spells.filter { $0.favorites == true }
-    }
+    private var nonFavoriteSpells: [Spell] = []
+    private var favoritesSpell: [Spell] = []
 
     private var searchBarIsEmpty: Bool {
         guard let text = searchBar.text else { return true }
@@ -40,7 +34,11 @@ final class SpellsTableViewController: UITableViewController, Storyboarded {
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        section == 0 ? "Favorites spells" : "Spells"
+        if section == 0 {
+            return favoritesSpell.isEmpty ? nil : "Favorites spells"
+        } else {
+            return "Spells"
+        }
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -93,6 +91,7 @@ final class SpellsTableViewController: UITableViewController, Storyboarded {
             case .success(let spells):
                 self.spells = spells
                 setFavorites()
+                filterSpells()
                 tableView.reloadData()
             case .failure(let error):
                 print(error)
@@ -102,11 +101,25 @@ final class SpellsTableViewController: UITableViewController, Storyboarded {
 
     private func setFavorites() {
         let favorites = StorageManager.shared.fetch()
-
         for index in 0..<spells.count {
-            let isFavorites = favorites.contains { $0.contains(spells[index].name) }
-            spells[index].favorites = isFavorites
+            let isFavorites = favorites.contains { $0 == spells[index].id }
+            spells[index].isFavorites = isFavorites
         }
+    }
+
+    private func refrashSpells(_ spell: Spell) {
+        if let index = spells.firstIndex(where: { $0.name == spell.name }) {
+            spells[index] = spell
+        } else {
+            print("element not found")
+        }
+    }
+
+    private func filterSpells() {
+        nonFavoriteSpells = searchBarIsEmpty
+        ? spells.filter { $0.isFavorites == false }
+        : filteredSpells.filter { $0.isFavorites == false }
+        favoritesSpell = spells.filter { $0.isFavorites == true }
     }
 }
 
@@ -114,7 +127,7 @@ final class SpellsTableViewController: UITableViewController, Storyboarded {
 extension SpellsTableViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filteredSpells.removeAll()
-
+        filterSpells()
         guard searchText != "" else {
             tableView.reloadData()
             return }
@@ -123,6 +136,7 @@ extension SpellsTableViewController: UISearchBarDelegate {
 
     private func filterContentForSearchText(_ searchText: String) {
         filteredSpells = spells.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+        filterSpells()
         tableView.reloadData()
     }
 }
@@ -130,11 +144,15 @@ extension SpellsTableViewController: UISearchBarDelegate {
 // MARK: - SpellsTableViewDelegate
 extension SpellsTableViewController: SpellsTableViewDelegate {
     func refreshFavorites(from spell: Spell) {
-        guard let favorites = spell.favorites else { return }
+        spell.isFavorites
+        ? storageManager.save(spell: spell.id)
+        : storageManager.remove(spell: spell.id)
 
-        favorites
+        spell.isFavorites
         ? movingToFavoritesSpells(spell)
         : movingToAllSpells(spell)
+
+        refrashSpells(spell)
     }
 
     private func movingToAllSpells(_ spell: Spell) {
@@ -145,7 +163,9 @@ extension SpellsTableViewController: SpellsTableViewDelegate {
         let indexPathTo = IndexPath(row: nonFavoriteSpells.count, section: 1)
 
         tableView.beginUpdates()
-        refrashSpells(spell)
+        favoritesSpell.remove(at: index)
+        nonFavoriteSpells.append(spell)
+//        refrashSpells(spell)
         tableView.deleteRows(at: [indexPathFrom], with: .fade)
         tableView.insertRows(at: [indexPathTo], with: .fade)
         tableView.endUpdates()
@@ -159,21 +179,11 @@ extension SpellsTableViewController: SpellsTableViewDelegate {
         let indexPathTo = IndexPath(row: favoritesSpell.count, section: 0)
 
         tableView.beginUpdates()
-        refrashSpells(spell)
+        let remore = nonFavoriteSpells.remove(at: index)
+        favoritesSpell.append(spell)
+
         tableView.deleteRows(at: [indexPathFrom], with: .fade)
         tableView.insertRows(at: [indexPathTo], with: .fade)
         tableView.endUpdates()
-    }
-
-    private func refrashSpells(_ spell: Spell) {
-        if let index = filteredSpells.firstIndex(where: { $0.name == spell.name }) {
-            filteredSpells.remove(at: index)
-        }
-
-        if let index = spells.firstIndex(where: { $0.name == spell.name }) {
-            spells[index] = spell
-        } else {
-            print("element not found")
-        }
     }
 }
