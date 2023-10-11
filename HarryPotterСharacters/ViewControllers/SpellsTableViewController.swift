@@ -13,9 +13,9 @@ final class SpellsTableViewController: UITableViewController, Storyboarded {
 
     private let storageManager = StorageManager.shared
     private var spells: [Spell] = []
-    private var filteredSpells: [Spell] = []
-    private var nonFavoriteSpells: [Spell] = []
-    private var favoritesSpell: [Spell] = []
+    private var filteredSpells: [Spell]  = []
+    private var nonFavoriteSpells: [Spell]  = []
+    private var favoritesSpell: [Spell]  = []
 
     private var searchBarIsEmpty: Bool {
         guard let text = searchBar.text else { return true }
@@ -107,10 +107,18 @@ final class SpellsTableViewController: UITableViewController, Storyboarded {
         }
     }
 
+    private func refrashSpells(_ spell: Spell) {
+        if let index = spells.firstIndex(where: { $0.name == spell.name }) {
+            spells[index] = spell
+        } else {
+            print("element not found")
+        }
+    }
+
     private func filterSpells() {
         nonFavoriteSpells = searchBarIsEmpty
         ? spells.filter { $0.isFavorites == false }
-        : filteredSpells
+        : filteredSpells.filter { $0.isFavorites == false }
         favoritesSpell = spells.filter { $0.isFavorites == true }
     }
 }
@@ -119,7 +127,7 @@ final class SpellsTableViewController: UITableViewController, Storyboarded {
 extension SpellsTableViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filteredSpells.removeAll()
-
+        filterSpells()
         guard searchText != "" else {
             tableView.reloadData()
             return }
@@ -143,6 +151,8 @@ extension SpellsTableViewController: SpellsTableViewDelegate {
         spell.isFavorites
         ? movingToFavoritesSpells(spell)
         : movingToAllSpells(spell)
+
+        refrashSpells(spell)
     }
 
     private func movingToAllSpells(_ spell: Spell) {
@@ -155,6 +165,7 @@ extension SpellsTableViewController: SpellsTableViewDelegate {
         tableView.beginUpdates()
         favoritesSpell.remove(at: index)
         nonFavoriteSpells.append(spell)
+//        refrashSpells(spell)
         tableView.deleteRows(at: [indexPathFrom], with: .fade)
         tableView.insertRows(at: [indexPathTo], with: .fade)
         tableView.endUpdates()
@@ -168,8 +179,9 @@ extension SpellsTableViewController: SpellsTableViewDelegate {
         let indexPathTo = IndexPath(row: favoritesSpell.count, section: 0)
 
         tableView.beginUpdates()
-        nonFavoriteSpells.remove(at: index)
+        let remore = nonFavoriteSpells.remove(at: index)
         favoritesSpell.append(spell)
+
         tableView.deleteRows(at: [indexPathFrom], with: .fade)
         tableView.insertRows(at: [indexPathTo], with: .fade)
         tableView.endUpdates()
