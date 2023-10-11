@@ -13,9 +13,9 @@ final class SpellsTableViewController: UITableViewController, Storyboarded {
 
     private let storageManager = StorageManager.shared
     private var spells: [Spell] = []
-    private var filteredSpells: [Spell]  = []
-    private var nonFavoriteSpells: [Spell]  = []
-    private var favoritesSpell: [Spell]  = []
+    private var filteredSpells: [Spell] = []
+    private var nonFavoriteSpells: [Spell] = []
+    private var favoritesSpell: [Spell] = []
 
     private var searchBarIsEmpty: Bool {
         guard let text = searchBar.text else { return true }
