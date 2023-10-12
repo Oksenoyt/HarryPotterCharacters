@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Character-->
+        <!--Characters-->
         <scene sceneID="3ju-0w-pTN">
             <objects>
                 <collectionViewController id="t6c-Rb-X3Y" customClass="CollectionViewController" customModule="HarryPotterСharacters" customModuleProvider="target" sceneMemberID="viewController">
@@ -63,7 +63,7 @@
                             <outlet property="delegate" destination="t6c-Rb-X3Y" id="Z6p-lO-8zh"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="Character" id="8GK-Mz-kdX">
+                    <navigationItem key="navigationItem" title="Characters" id="8GK-Mz-kdX">
                         <barButtonItem key="rightBarButtonItem" title="Spells" id="ihV-BA-Ab1">
                             <color key="tintColor" red="0.6588235294" green="0.91764705879999997" blue="0.73725490199999999" alpha="0.89501862180000002" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
@@ -74,7 +74,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hqM-Km-PRx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="296" y="256"/>
+            <point key="canvasLocation" x="272" y="207"/>
         </scene>
         <!--Spells Table View Controller-->
         <scene sceneID="wz0-US-p6z">
@@ -226,7 +226,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hW4-oX-Z1v" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="evL-xP-gp3">
-                        <rect key="frame" x="0.0" y="20" width="320" height="92.5"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="98.5"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.6588235294" green="0.91764705879999997" blue="0.73725490199999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

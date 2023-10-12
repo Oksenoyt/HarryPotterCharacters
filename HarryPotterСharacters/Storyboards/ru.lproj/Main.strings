@@ -1,0 +1,27 @@
+
+/* Class = "UINavigationItem"; title = "Character"; ObjectID = "8GK-Mz-kdX"; */
+"8GK-Mz-kdX.title" = "Персонажи";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "926-fg-mzX"; */
+"926-fg-mzX.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Qsdfmnxnjfk kksmmk sdfsdf sdfsdfs sdfsdfsd sdfsdfs sdfsdfsdf sdfsdfsdf sdfsdf"; ObjectID = "GCA-lx-Cob"; */
+"GCA-lx-Cob.text" = "Qsdfmnxnjfk kksmmk sdfsdf sdfsdfs sdfsdfsd sdfsdfs sdfsdfsdf sdfsdfsdf sdfsdf";
+
+/* Class = "UISearchBar"; placeholder = "Search spell"; ObjectID = "P9t-YZ-gWW"; */
+"P9t-YZ-gWW.placeholder" = "Поиск заклинаний";
+
+/* Class = "UILabel"; text = "Qasdasdasd"; ObjectID = "VyA-UB-ASf"; */
+"VyA-UB-ASf.text" = "Qasdasdasd";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "ZYf-hp-qO9"; */
+"ZYf-hp-qO9.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "a7Z-Re-oTe"; */
+"a7Z-Re-oTe.text" = "Label";
+
+/* Class = "UIBarButtonItem"; title = "Spells"; ObjectID = "ihV-BA-Ab1"; */
+"ihV-BA-Ab1.title" = "Заклинания";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "uKb-T5-e6b"; */
+"uKb-T5-e6b.text" = "Label";

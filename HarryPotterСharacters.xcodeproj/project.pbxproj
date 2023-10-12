@@ -15,6 +15,7 @@
 		426FA12028A51F540051C07C /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426FA11F28A51F540051C07C /* NetworkManager.swift */; };
 		42748F252AA3B95F009A76A2 /* Spell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42748F242AA3B95F009A76A2 /* Spell.swift */; };
 		42748F272AA3BB52009A76A2 /* SpellsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42748F262AA3BB52009A76A2 /* SpellsTableViewController.swift */; };
+		427FA9842AD71D3D001A4D6A /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 427FA9832AD71D3D001A4D6A /* Localizable.xcstrings */; };
 		4287D7232ACC9DDD00308AFD /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4287D7222ACC9DDD00308AFD /* StorageManager.swift */; };
 		42A18FE82ACC916100D47BEA /* SpellsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A18FE72ACC916100D47BEA /* SpellsTableViewCell.swift */; };
 		42CCE9DC28A272D300C0BD06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CCE9DB28A272D300C0BD06 /* AppDelegate.swift */; };
@@ -38,6 +39,7 @@
 		426FA11F28A51F540051C07C /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		42748F242AA3B95F009A76A2 /* Spell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spell.swift; sourceTree = "<group>"; };
 		42748F262AA3BB52009A76A2 /* SpellsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpellsTableViewController.swift; sourceTree = "<group>"; };
+		427FA9832AD71D3D001A4D6A /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		4287D7222ACC9DDD00308AFD /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		42A18FE72ACC916100D47BEA /* SpellsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpellsTableViewCell.swift; sourceTree = "<group>"; };
 		42CCE9D828A272D300C0BD06 /* HarryPotterСharacters.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HarryPotterСharacters.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -52,6 +54,8 @@
 		42EF5EBC2AD5D341003F0721 /* SpellForParsingAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpellForParsingAPI.swift; sourceTree = "<group>"; };
 		42F3F4802AAB5F7A00C2049F /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		42F3F4832AAB76A600C2049F /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		42F562C72AD724B00007F93B /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		42F562CB2AD72D9C0007F93B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +165,7 @@
 				429508D028A2E34F00FFAA8C /* Storyboards */,
 				429508D328A2E45500FFAA8C /* Resourses */,
 				42CCE9E928A272D500C0BD06 /* Info.plist */,
+				427FA9832AD71D3D001A4D6A /* Localizable.xcstrings */,
 			);
 			path = "HarryPotterСharacters";
 			sourceTree = "<group>";
@@ -215,6 +220,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 42CCE9CF28A272D300C0BD06;
 			productRefGroup = 42CCE9D928A272D300C0BD06 /* Products */;
@@ -233,6 +239,7 @@
 			files = (
 				42CCE9E828A272D500C0BD06 /* LaunchScreen.storyboard in Resources */,
 				42CCE9E528A272D500C0BD06 /* Assets.xcassets in Resources */,
+				427FA9842AD71D3D001A4D6A /* Localizable.xcstrings in Resources */,
 				42CCE9E328A272D300C0BD06 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -271,6 +278,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				42CCE9E228A272D300C0BD06 /* Base */,
+				42F562C72AD724B00007F93B /* ru */,
+				42F562CB2AD72D9C0007F93B /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

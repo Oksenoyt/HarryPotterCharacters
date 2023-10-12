@@ -35,9 +35,9 @@ final class SpellsTableViewController: UITableViewController, Storyboarded {
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
-            return favoritesSpell.isEmpty ? nil : "Favorites spells"
+            return favoritesSpell.isEmpty ? nil : String(localized: "Favorites spells")
         } else {
-            return "Spells"
+            return String(localized: "Spells")
         }
     }
 

@@ -1,0 +1,42 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "\nhouse: %@ \nwand: %@ \nactor: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\nhouse: %1$@ \nwand: %2$@ \nactor: %3$@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\nфакультет: %1$@ \nпалочка: %2$@ \nактер: %3$@"
+          }
+        }
+      }
+    },
+    "Favorites spells" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Избранные заклинания"
+          }
+        }
+      }
+    },
+    "Spells" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Заклинания"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
