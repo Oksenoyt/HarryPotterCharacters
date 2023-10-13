@@ -33,9 +33,4 @@ final class StorageManager {
         favoritesSpells = favoritesSpells.filter { $0 != spell }
         defaults.set(favoritesSpells, forKey: favoritesKey)
     }
-
-    func removeAll() {
-        defaults.removeObject(forKey: favoritesKey)
-    }
-
 }

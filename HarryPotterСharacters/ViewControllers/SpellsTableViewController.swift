@@ -8,6 +8,11 @@
 import UIKit
 
 final class SpellsTableViewController: UITableViewController, Storyboarded {
+    enum Section: Int {
+        case favorites
+        case original
+    }
+
 
     @IBOutlet weak var searchBar: UISearchBar!
 
@@ -28,61 +33,6 @@ final class SpellsTableViewController: UITableViewController, Storyboarded {
         fetchSpell()
     }
 
-    // MARK: - Table view data source
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        2
-    }
-
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
-            return favoritesSpell.isEmpty ? nil : String(localized: "Favorites spells")
-        } else {
-            return String(localized: "Spells")
-        }
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        section == 0 ? favoritesSpell.count : nonFavoriteSpells.count
-    }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard
-            let cell = tableView.dequeueReusableCell(
-                withIdentifier: "spellCell",
-                for: indexPath
-            ) as? SpellsTableViewCell
-        else {
-            return UITableViewCell()
-        }
-
-        if indexPath.section == 0 {
-            let favoriteSpell = favoritesSpell[indexPath.row]
-            cell.configure(for: favoriteSpell)
-        } else {
-            let spell = nonFavoriteSpells[indexPath.row]
-            cell.configure(for: spell)
-        }
-
-        cell.delegate = self
-        return cell
-    }
-
-    // MARK: - UITableViewDelegate
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-
-    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        guard let header = view as? UITableViewHeaderFooterView else { return }
-
-        header.textLabel?.font = UIFont(name: "Helvetica-Bold", size: 22)
-        header.textLabel?.numberOfLines = 0
-        header.textLabel?.lineBreakMode = .byWordWrapping
-        header.textLabel?.textColor = UIColor.black
-        header.sizeToFit()
-    }
-
-    // MARK: - Private function
     private func fetchSpell() {
         NetworkManager.shared.getSpells { [weak self] result in
             guard let self else { return }
@@ -99,6 +49,62 @@ final class SpellsTableViewController: UITableViewController, Storyboarded {
         }
     }
 
+    // MARK: - Table view data source
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        Section.original.rawValue + 1
+    }
+
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == Section.favorites.rawValue {
+            return favoritesSpell.isEmpty ? nil : String(localized: "Favorites spells")
+        } else {
+            return String(localized: "Spells")
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        section == Section.favorites.rawValue ? favoritesSpell.count : nonFavoriteSpells.count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: "spellCell",
+                for: indexPath
+            ) as? SpellsTableViewCell
+        else {
+            return UITableViewCell()
+        }
+
+        if indexPath.section == Section.favorites.rawValue {
+            cell.configure(for: favoritesSpell[indexPath.row])
+        } else {
+            cell.configure(for: nonFavoriteSpells[indexPath.row])
+        }
+
+        cell.delegate = self
+        return cell
+    }
+
+    // MARK: - UITableViewDelegate
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        guard let header = view as? UITableViewHeaderFooterView else { return }
+        configureHeader(view: header)
+    }
+
+    // MARK: - Private function
+    private func configureHeader(view: UITableViewHeaderFooterView) {
+        view.textLabel?.font = UIFont(name: "Helvetica-Bold", size: 22)
+        view.textLabel?.numberOfLines = 0
+        view.textLabel?.lineBreakMode = .byWordWrapping
+        view.textLabel?.textColor = UIColor.black
+        view.sizeToFit()
+    }
+
     private func setFavorites() {
         let favorites = StorageManager.shared.fetch()
         for index in 0..<spells.count {
@@ -107,7 +113,7 @@ final class SpellsTableViewController: UITableViewController, Storyboarded {
         }
     }
 
-    private func refrashSpells(_ spell: Spell) {
+    private func refreshSpells(_ spell: Spell) {
         if let index = spells.firstIndex(where: { $0.name == spell.name }) {
             spells[index] = spell
         } else {
@@ -152,15 +158,15 @@ extension SpellsTableViewController: SpellsTableViewDelegate {
         ? movingToFavoritesSpells(spell)
         : movingToAllSpells(spell)
 
-        refrashSpells(spell)
+        refreshSpells(spell)
     }
 
     private func movingToAllSpells(_ spell: Spell) {
         guard let index = favoritesSpell.firstIndex(where: { $0.name == spell.name }) else {
             return
         }
-        let indexPathFrom = IndexPath(row: index, section: 0)
-        let indexPathTo = IndexPath(row: nonFavoriteSpells.count, section: 1)
+        let indexPathFrom = IndexPath(row: index, section: Section.favorites.rawValue)
+        let indexPathTo = IndexPath(row: nonFavoriteSpells.count, section: Section.original.rawValue)
 
         favoritesSpell.remove(at: index)
         nonFavoriteSpells.append(spell)
@@ -174,8 +180,8 @@ extension SpellsTableViewController: SpellsTableViewDelegate {
         guard let index = nonFavoriteSpells.firstIndex(where: { $0.name == spell.name }) else {
             return
         }
-        let indexPathFrom = IndexPath(row: index, section: 1)
-        let indexPathTo = IndexPath(row: favoritesSpell.count, section: 0)
+        let indexPathFrom = IndexPath(row: index, section: Section.original.rawValue)
+        let indexPathTo = IndexPath(row: favoritesSpell.count, section: Section.favorites.rawValue)
 
         nonFavoriteSpells.remove(at: index)
         favoritesSpell.append(spell)

@@ -20,6 +20,34 @@ final class CollectionViewController: UICollectionViewController {
         setupRefreshControl()
     }
 
+    private func fetchData() {
+        NetworkManager.shared.getCharacters { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let characterList):
+                characters = characterList
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                    self.collectionView.refreshControl?.endRefreshing()
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+
+    private func setupRefreshControl() {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        collectionView.refreshControl = refreshControl
+        refreshControl.tintColor = .lightGray
+        refreshControl.attributedTitle =
+        NSAttributedString(
+            string: "Pull to refresh",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray]
+        )
+    }
+
     @IBAction func SpellsButtonAction(_ sender: Any) {
         let spellsVC = SpellsTableViewController.instantiate()
         let navigationController = UINavigationController(rootViewController: spellsVC)
@@ -49,35 +77,6 @@ final class CollectionViewController: UICollectionViewController {
         cell.congigure(with: character)
 
         return cell
-    }
-
-    // MARK: - Private function
-    private func fetchData() {
-        NetworkManager.shared.getCharacters { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case .success(let characterList):
-                characters = characterList
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                    self.collectionView.refreshControl?.endRefreshing()
-                }
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
-
-    private func setupRefreshControl() {
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
-        collectionView.refreshControl = refreshControl
-        refreshControl.tintColor = .lightGray
-        refreshControl.attributedTitle =
-        NSAttributedString(
-            string: "Pull to refresh",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray]
-        )
     }
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
