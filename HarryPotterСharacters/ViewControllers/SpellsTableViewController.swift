@@ -162,13 +162,12 @@ extension SpellsTableViewController: SpellsTableViewDelegate {
         let indexPathFrom = IndexPath(row: index, section: 0)
         let indexPathTo = IndexPath(row: nonFavoriteSpells.count, section: 1)
 
-        tableView.beginUpdates()
         favoritesSpell.remove(at: index)
         nonFavoriteSpells.append(spell)
-//        refrashSpells(spell)
-        tableView.deleteRows(at: [indexPathFrom], with: .fade)
-        tableView.insertRows(at: [indexPathTo], with: .fade)
-        tableView.endUpdates()
+        tableView.performBatchUpdates({
+            tableView.deleteRows(at: [indexPathFrom], with: .automatic)
+            tableView.insertRows(at: [indexPathTo], with: .automatic)
+        }, completion: nil)
     }
 
     private func movingToFavoritesSpells(_ spell: Spell) {
@@ -178,12 +177,11 @@ extension SpellsTableViewController: SpellsTableViewDelegate {
         let indexPathFrom = IndexPath(row: index, section: 1)
         let indexPathTo = IndexPath(row: favoritesSpell.count, section: 0)
 
-        tableView.beginUpdates()
-        let remore = nonFavoriteSpells.remove(at: index)
+        nonFavoriteSpells.remove(at: index)
         favoritesSpell.append(spell)
-
-        tableView.deleteRows(at: [indexPathFrom], with: .fade)
-        tableView.insertRows(at: [indexPathTo], with: .fade)
-        tableView.endUpdates()
+        tableView.performBatchUpdates({
+            tableView.deleteRows(at: [indexPathFrom], with: .automatic)
+            tableView.insertRows(at: [indexPathTo], with: .automatic)
+        }, completion: nil)
     }
 }
