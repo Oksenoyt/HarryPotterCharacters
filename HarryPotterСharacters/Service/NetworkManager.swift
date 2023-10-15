@@ -55,7 +55,6 @@ final class NetworkManager {
         }
     }
 
-    // MARK: - Private function
     func fetchImage(from url: URL, completion: @escaping(Result<Data, NetworkError>) ->  Void) {
         DispatchQueue.global().async {
             guard let imageDate = try? Data(contentsOf: url) else {
@@ -67,7 +66,8 @@ final class NetworkManager {
             }
         }
     }
-
+    
+    // MARK: - Private function
     private func fetch<T: Decodable>(_ type: T.Type, from url: String, completion: @escaping(Result<T, NetworkError>) ->  Void) {
         guard let url = URL(string: url) else {
             completion(.failure(.invalidURL))

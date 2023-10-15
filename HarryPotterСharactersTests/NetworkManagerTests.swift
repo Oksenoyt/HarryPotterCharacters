@@ -8,8 +8,8 @@
 import XCTest
 @testable import HarryPotterСharacters
 
-final class NetworkManagerTests: XCTestCase {
-    private var sut: NetworkManager!
+final private class NetworkManagerTests: XCTestCase {
+    var sut: NetworkManager!
 
     override func setUpWithError() throws {
         try super.setUpWithError()
@@ -17,32 +17,67 @@ final class NetworkManagerTests: XCTestCase {
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         sut = nil
         try super.tearDownWithError()
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testDecoding() throws {
-        /// When the Data initializer is throwing an error, the test will fail.
-        let jsonData = try Data(contentsOf: URL(string: "user.json")!)
-
-        /// The `XCTAssertNoThrow` can be used to get extra context about the throw
-        XCTAssertNoThrow(try JSONDecoder().decode(Character.self, from: jsonData))
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
+    func testGetCharactersSuccess() {
+        let expectation = self.expectation(description: "Characters fetch successful")
+        sut.getCharacters { result in
+            switch result {
+            case .success(let characters):
+                XCTAssertGreaterThan(characters.count, 0, "Characters list should not be empty on success")
+                XCTAssertTrue(characters.allSatisfy { !$0.image.isEmpty }, "All characters should have non-empty image URLs")
+                expectation.fulfill()
+            case .failure(let error):
+                XCTFail("Expected successful characters fetch, but got error: \(error)")
+            }
         }
+        waitForExpectations(timeout: 5, handler: nil)
     }
 
+    func testGetSpellsSuccess() {
+        let expectation = self.expectation(description: "Spells fetch successful")
+        sut.getSpells { result in
+            switch result {
+            case .success(let spells):
+                XCTAssertGreaterThan(spells.count, 0, "Spells list should not be empty on success")
+                XCTAssertTrue(spells.allSatisfy { !$0.name.isEmpty && !$0.description.isEmpty }, "All spells should have non-empty names and descriptions")
+                expectation.fulfill()
+            case .failure(let error):
+                XCTFail("Expected successful spells fetch, but got error: \(error)")
+            }
+        }
+        waitForExpectations(timeout: 5, handler: nil)
+    }
+
+    func testFetchImageSuccess() {
+        let imageUrl = URL(string: "https://ik.imagekit.io/hpapi/harry.jpg")!
+        let expectation = self.expectation(description: "Image fetch successful")
+        sut.fetchImage(from: imageUrl) { result in
+            switch result {
+            case .success(let imageData):
+                XCTAssertGreaterThan(imageData.count, 0, "Image data should not be empty on success")
+                expectation.fulfill()
+            case .failure(let error):
+                XCTFail("Expected successful image fetch, but got error: \(error)")
+            }
+        }
+        waitForExpectations(timeout: 5, handler: nil)
+    }
+
+    func testFetchImageFailure() {
+        let invalidImageUrl = URL(string: "https://example.com/image.jpg")!
+        let expectation = self.expectation(description: "Image fetch should fail")
+        sut.fetchImage(from: invalidImageUrl) { result in
+            switch result {
+            case .success(_):
+                XCTFail("Expected image fetch to fail, but got success")
+            case .failure(let error):
+                XCTAssertEqual(error, .noDate, "Expected failure with .noDate error")
+                expectation.fulfill()
+            }
+        }
+        waitForExpectations(timeout: 5, handler: nil)
+    }
 }

@@ -8,15 +8,16 @@
 import XCTest
 @testable import HarryPotterСharacters
 
-final class StorageManagerTests: XCTestCase {
-    private var sut: StorageManager!
-    private var userDefaults: UserDefaults!
+final private class StorageManagerTests: XCTestCase {
+    var sut: StorageManager!
+    var userDefaults: UserDefaults!
+    let testKey = "favoritesSpells"
 
-    private enum TestsData: String {
+    enum TestsData: String {
         case one = "spellFirst"
         case two = "spellSecond"
     }
-
+    
     override func setUp() {
         super.setUp()
         userDefaults = UserDefaults(suiteName: #file)
@@ -24,47 +25,54 @@ final class StorageManagerTests: XCTestCase {
     }
 
     override func tearDown() {
+        userDefaults.removeObject(forKey: testKey)
         userDefaults.removeSuite(named: #file)
         userDefaults = nil
         sut = nil
         super.tearDown()
     }
 
-    func testSaveShouldBeSaveDataInTheArray() {
+    func testSaveDataInTheArray() {
         sut.save(spell: TestsData.one.rawValue)
         let spells = sut.favoritesSpells
         XCTAssertEqual(spells.count, 1)
     }
 
-    func testSaveShouldBeSaveCorrectInTheArray() {
+    func testSaveCorrectValueInTheArray() {
         sut.save(spell: TestsData.one.rawValue)
         let data = sut.favoritesSpells
         XCTAssert(data == [TestsData.one.rawValue], "Data is saved incorrectly in the array")
     }
 
-    func testSaveShouldBeSaveInTheUserDefaults() {
+    func testSaveDataInTheUserDefaults() {
         sut.save(spell: TestsData.one.rawValue)
         sut.save(spell: TestsData.two.rawValue)
-        let data = userDefaults.object(forKey: "favoritesSpells") as? [String]
+        let data = userDefaults.object(forKey: testKey) as? [String]
         XCTAssert(data == [TestsData.one.rawValue, TestsData.two.rawValue], "Data is saved incorrectly in the UserDefaults")
     }
 
-    func testFetchShouldBeGetDataFromTheUserDefaults() {
+    func testFetchDataFromTheUserDefaults() {
         sut.save(spell: TestsData.one.rawValue)
         let data = sut.fetch()
         XCTAssert(data == [TestsData.one.rawValue], "Data not received from the UserDefaults")
     }
 
     func testFetchDataShouldBeSavedInTheArray() {
-        sut.save(spell: TestsData.one.rawValue)
-        sut.fetch()
-        XCTAssertEqual(sut.favoritesSpells.count, 1)
+        userDefaults.set([TestsData.one.rawValue], forKey: testKey)
+        let data = sut.fetch()
+        XCTAssert(data == [TestsData.one.rawValue])
     }
 
-    func testRemoveDataShouldBeDeleteFromTheUserDefaults() {
-        sut.save(spell: TestsData.one.rawValue)
+    func testFetchEmptyData() {
+        let data = sut.fetch()
+        XCTAssertEqual(sut.favoritesSpells.count, 0)
+        XCTAssert(data == [])
+    }
+
+    func testRemoveDataFromTheUserDefaults() {
+        userDefaults.set([TestsData.one.rawValue], forKey: testKey)
         sut.remove(spell: TestsData.one.rawValue)
-        let data = userDefaults.object(forKey: "favoritesSpells") as? [String]
+        let data = userDefaults.object(forKey: testKey) as? [String]
         XCTAssert(data == [], "Data not remove from the UserDefaults")
     }
 }
