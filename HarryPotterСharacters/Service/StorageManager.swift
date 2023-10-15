@@ -8,13 +8,13 @@
 import Foundation
 
 final class StorageManager {
-    static let shared = StorageManager()
-
-    private let defaults = UserDefaults.standard
+    private var defaults: UserDefaults
     private let favoritesKey = "favoritesSpells"
-    private var favoritesSpells: [String] = []
+    private(set) var favoritesSpells: [String] = []
 
-    private init () {}
+    init (userDefaults: UserDefaults = UserDefaults.standard) {
+        defaults = userDefaults
+    }
 
     func save(spell: String) {
         favoritesSpells.append(spell)

@@ -10,6 +10,7 @@ import UIKit
 final class CollectionViewController: UICollectionViewController {
 
     private var characters: [Character] = []
+    private var activityIndicator: UIActivityIndicatorView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +19,7 @@ final class CollectionViewController: UICollectionViewController {
         collectionView.collectionViewLayout = UICollectionViewFlowLayout()
 
         setupRefreshControl()
+        activityIndicator = ActivityIndicator().showSpinner(in: view)
     }
 
     private func fetchData() {
@@ -29,6 +31,7 @@ final class CollectionViewController: UICollectionViewController {
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
                     self.collectionView.refreshControl?.endRefreshing()
+                    self.activityIndicator?.stopAnimating()
                 }
             case .failure(let error):
                 print(error)

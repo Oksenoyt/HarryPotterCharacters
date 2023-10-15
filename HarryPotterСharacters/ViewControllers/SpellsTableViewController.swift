@@ -16,7 +16,7 @@ final class SpellsTableViewController: UITableViewController, Storyboarded {
 
     @IBOutlet weak var searchBar: UISearchBar!
 
-    private let storageManager = StorageManager.shared
+    private let storageManager = StorageManager()
     private var spells: [Spell] = []
     private var filteredSpells: [Spell] = []
     private var nonFavoriteSpells: [Spell] = []
@@ -106,7 +106,7 @@ final class SpellsTableViewController: UITableViewController, Storyboarded {
     }
 
     private func setFavorites() {
-        let favorites = StorageManager.shared.fetch()
+        let favorites = storageManager.fetch()
         for index in 0..<spells.count {
             let isFavorites = favorites.contains { $0 == spells[index].id }
             spells[index].isFavorites = isFavorites
