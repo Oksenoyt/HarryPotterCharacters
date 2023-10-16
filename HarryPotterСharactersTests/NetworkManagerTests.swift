@@ -13,7 +13,7 @@ final private class NetworkManagerTests: XCTestCase {
 
     override func setUpWithError() throws {
         try super.setUpWithError()
-        sut = NetworkManager.shared
+        sut = NetworkManager()
     }
 
     override func tearDownWithError() throws {

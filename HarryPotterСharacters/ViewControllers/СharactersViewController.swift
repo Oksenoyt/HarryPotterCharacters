@@ -11,6 +11,7 @@ final class CollectionViewController: UICollectionViewController {
 
     private var characters: [Character] = []
     private var activityIndicator: UIActivityIndicatorView?
+    private let networkManager: NetworkingManagerProtocol = NetworkManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +24,7 @@ final class CollectionViewController: UICollectionViewController {
     }
 
     private func fetchData() {
-        NetworkManager.shared.getCharacters { [weak self] result in
+        networkManager.getCharacters { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let characterList):

@@ -16,7 +16,8 @@ final class SpellsTableViewController: UITableViewController, Storyboarded {
 
     @IBOutlet weak var searchBar: UISearchBar!
 
-    private let storageManager = StorageManager()
+    private let storageManager: StorageManagerProtocol = StorageManager()
+    private let netrowkManager: NetworkingManagerProtocol = NetworkManager()
     private var spells: [Spell] = []
     private var filteredSpells: [Spell] = []
     private var nonFavoriteSpells: [Spell] = []
@@ -34,7 +35,7 @@ final class SpellsTableViewController: UITableViewController, Storyboarded {
     }
 
     private func fetchSpell() {
-        NetworkManager.shared.getSpells { [weak self] result in
+        netrowkManager.getSpells { [weak self] result in
             guard let self else { return }
 
             switch result {

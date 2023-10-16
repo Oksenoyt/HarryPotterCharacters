@@ -18,11 +18,7 @@ enum NetworkError: Error {
     case decodingError
 }
 
-final class NetworkManager {
-    static let shared = NetworkManager()
-
-    private init() {}
-
+final class NetworkManager: NetworkingManagerProtocol {
     func getCharacters(completion: @escaping(Result<[Character], NetworkError>) ->  Void) {
         fetch([Character].self, from: Link.character.rawValue) { result in
 

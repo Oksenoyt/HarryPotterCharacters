@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class StorageManager {
+final class StorageManager: StorageManagerProtocol {
     private var defaults: UserDefaults
     private let favoritesKey = "favoritesSpells"
     private(set) var favoritesSpells: [String] = []
