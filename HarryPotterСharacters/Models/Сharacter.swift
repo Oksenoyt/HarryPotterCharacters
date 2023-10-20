@@ -7,10 +7,18 @@
 
 import Foundation
 
-struct Character: Decodable {
+struct Character: Codable, Equatable {
     let name: String
     let house: String
     let wand: Wand
     let image: String
     let actor: String
+
+    static func ==(lhs: Character, rhs: Character) -> Bool {
+        return lhs.name == rhs.name &&
+               lhs.house == rhs.house &&
+               lhs.wand == rhs.wand &&
+               lhs.image == rhs.image &&
+               lhs.actor == rhs.actor
+    }
 }

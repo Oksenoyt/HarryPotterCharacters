@@ -8,76 +8,262 @@
 import XCTest
 @testable import HarryPotterСharacters
 
-final private class NetworkManagerTests: XCTestCase {
-    var sut: NetworkManager!
+class NetworkManagerTests: XCTestCase {
+    var mockSession: MockURLSession!
+    var networkManager: NetworkManager!
 
-    override func setUpWithError() throws {
-        try super.setUpWithError()
-        sut = NetworkManager()
+    override func setUp() {
+        super.setUp()
+
+        mockSession = MockURLSession()
+        networkManager = NetworkManager(session: mockSession)
     }
 
-    override func tearDownWithError() throws {
-        sut = nil
-        try super.tearDownWithError()
+    override func tearDown() {
+        mockSession = nil
+        networkManager = nil
+
+        super.tearDown()
     }
 
     func testGetCharactersSuccess() {
-        let expectation = self.expectation(description: "Characters fetch successful")
-        sut.getCharacters { result in
+        var fetchedCharacters: [Character]?
+        var fetchedError: NetworkError?
+
+        let expectation = self.expectation(description: "Fetching characters from mock")
+        
+        if let url = Bundle(for: type(of: self)).url(forResource: "CharacterResponse", withExtension: "json"),
+           let data = try? Data(contentsOf: url) {
+            mockSession.data = data
+        }
+        
+        networkManager.getCharacters { result in
             switch result {
             case .success(let characters):
-                XCTAssertGreaterThan(characters.count, 0, "Characters list should not be empty on success")
-                XCTAssertTrue(characters.allSatisfy { !$0.image.isEmpty }, "All characters should have non-empty image URLs")
-                expectation.fulfill()
+                fetchedCharacters = characters
             case .failure(let error):
-                XCTFail("Expected successful characters fetch, but got error: \(error)")
+                fetchedError = error
             }
+            expectation.fulfill()
         }
+
         waitForExpectations(timeout: 5, handler: nil)
+
+        XCTAssertNotNil(fetchedCharacters)
+        XCTAssertEqual(fetchedCharacters?.first?.name, "Harry Potter")
+        XCTAssertNil(fetchedError)
+    }
+
+    func testGetCharactersFilteringSuccess() {
+        var fetchedCharacters: [Character]?
+        var fetchedError: NetworkError?
+
+        let expectation = self.expectation(description: "Fetching characters and filtering by image")
+
+        if let url = Bundle(for: type(of: self)).url(forResource: "CharacterResponse", withExtension: "json"),
+           let data = try? Data(contentsOf: url) {
+            mockSession.data = data
+        }
+
+        networkManager.getCharacters { result in
+            switch result {
+            case .success(let characters):
+                fetchedCharacters = characters
+            case .failure(let error):
+                fetchedError = error
+            }
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 5, handler: nil)
+
+        XCTAssertNotNil(fetchedCharacters)
+        XCTAssertEqual(fetchedCharacters?.count, 1)
+        XCTAssertEqual(fetchedCharacters?.first?.name, "Harry Potter")
+        XCTAssertNil(fetchedError)
+    }
+
+    func testGetCharactersFailureNoDate() {
+        mockSession.error = NetworkError.noDate
+        mockSession.data = nil
+
+        var fetchedCharacters: [Character]?
+        var fetchedError: NetworkError?
+
+        let expectation = self.expectation(description: "Fetching characters with noDate error")
+
+        networkManager.getCharacters { result in
+            switch result {
+            case .success(let characters):
+                fetchedCharacters = characters
+            case .failure(let error):
+                fetchedError = error
+            }
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 5, handler: nil)
+
+        XCTAssertNil(fetchedCharacters)
+        XCTAssertEqual(fetchedError, NetworkError.noDate)
+    }
+
+    func testGetCharactersFailureDecodingError() {
+        let invalidJSONData = "{\"invalid\": \"data\"}".data(using: .utf8)!
+        mockSession.data = invalidJSONData
+
+        var fetchedCharacters: [Character]?
+        var fetchedError: NetworkError?
+
+        let expectation = self.expectation(description: "Fetching characters with decoding error")
+
+        networkManager.getCharacters { result in
+            switch result {
+            case .success(let characters):
+                fetchedCharacters = characters
+            case .failure(let error):
+                fetchedError = error
+            }
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 5, handler: nil)
+
+        XCTAssertNil(fetchedCharacters)
+        XCTAssertEqual(fetchedError, NetworkError.decodingError)
     }
 
     func testGetSpellsSuccess() {
-        let expectation = self.expectation(description: "Spells fetch successful")
-        sut.getSpells { result in
+        var fetchedSpells: [Spell]?
+        var fetchedError: NetworkError?
+
+        let expectation = self.expectation(description: "Fetching spells successfully")
+
+        if let url = Bundle(for: type(of: self)).url(forResource: "SpellResponse", withExtension: "json"),
+           let data = try? Data(contentsOf: url) {
+            mockSession.data = data
+        }
+
+        networkManager.getSpells { result in
             switch result {
             case .success(let spells):
-                XCTAssertGreaterThan(spells.count, 0, "Spells list should not be empty on success")
-                XCTAssertTrue(spells.allSatisfy { !$0.name.isEmpty && !$0.description.isEmpty }, "All spells should have non-empty names and descriptions")
-                expectation.fulfill()
+                fetchedSpells = spells
             case .failure(let error):
-                XCTFail("Expected successful spells fetch, but got error: \(error)")
+                fetchedError = error
             }
+            expectation.fulfill()
         }
+
         waitForExpectations(timeout: 5, handler: nil)
+
+        XCTAssertNotNil(fetchedSpells)
+        XCTAssertEqual(fetchedSpells?.first?.name, "Aberto")
+        XCTAssertNil(fetchedError)
     }
 
-    func testFetchImageSuccess() {
-        let imageUrl = URL(string: "https://ik.imagekit.io/hpapi/harry.jpg")!
-        let expectation = self.expectation(description: "Image fetch successful")
-        sut.fetchImage(from: imageUrl) { result in
+    func testGetSpellsFailureNoDate() {
+        mockSession.error = NetworkError.noDate
+        mockSession.data = nil
+
+        var fetchedSpells: [Spell]?
+        var fetchedError: NetworkError?
+
+        let expectation = self.expectation(description: "Fetching spells with noDate error")
+
+        networkManager.getSpells { result in
             switch result {
-            case .success(let imageData):
-                XCTAssertGreaterThan(imageData.count, 0, "Image data should not be empty on success")
-                expectation.fulfill()
+            case .success(let spells):
+                fetchedSpells = spells
             case .failure(let error):
-                XCTFail("Expected successful image fetch, but got error: \(error)")
+                fetchedError = error
             }
+            expectation.fulfill()
         }
+
         waitForExpectations(timeout: 5, handler: nil)
+
+        XCTAssertNil(fetchedSpells)
+        XCTAssertEqual(fetchedError, NetworkError.noDate)
+    }
+
+    func testGetSpellsFailureDecodingError() {
+        let invalidJSONData = "{\"invalid\": \"data\"}".data(using: .utf8)!
+        mockSession.data = invalidJSONData
+
+        var fetchedSpells: [Spell]?
+        var fetchedError: NetworkError?
+
+        let expectation = self.expectation(description: "Fetching spells with decoding error")
+
+        networkManager.getSpells { result in
+            switch result {
+            case .success(let spells):
+                fetchedSpells = spells
+            case .failure(let error):
+                fetchedError = error
+            }
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 5, handler: nil)
+
+        XCTAssertNil(fetchedSpells)
+        XCTAssertEqual(fetchedError, NetworkError.decodingError)
+    }
+
+    func testFetchImageSuccessWithRelativePath() {
+        guard let relativePath = Bundle(for: type(of: self)).path(forResource: "testImage", ofType: "png"),
+              let mockImage = UIImage(contentsOfFile: relativePath),
+              let mockImageData = mockImage.jpegData(compressionQuality: 1.0) else {
+            XCTFail("Failed to load the mock image or its data")
+            return
+        }
+
+        let mockImageURL = URL(fileURLWithPath: relativePath)
+        mockSession.data = mockImageData
+
+        var fetchedImageData: Data?
+        var fetchedError: NetworkError?
+
+        let expectation = self.expectation(description: "Fetching image successfully")
+
+        networkManager.fetchImage(from: mockImageURL) { result in
+            switch result {
+            case .success(let data):
+                fetchedImageData = data
+            case .failure(let error):
+                fetchedError = error
+            }
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 5, handler: nil)
+
+        XCTAssertNotNil(fetchedImageData)
+        XCTAssertNil(fetchedError)
     }
 
     func testFetchImageFailure() {
-        let invalidImageUrl = URL(string: "https://example.com/image.jpg")!
-        let expectation = self.expectation(description: "Image fetch should fail")
-        sut.fetchImage(from: invalidImageUrl) { result in
+        let invalidImageURL = URL(string: "https://invalid.url")!
+
+        var fetchedImageData: Data?
+        var fetchedError: NetworkError?
+
+        let expectation = self.expectation(description: "Fetching image with error")
+
+        networkManager.fetchImage(from: invalidImageURL) { result in
             switch result {
-            case .success(_):
-                XCTFail("Expected image fetch to fail, but got success")
+            case .success(let data):
+                fetchedImageData = data
             case .failure(let error):
-                XCTAssertEqual(error, .noDate, "Expected failure with .noDate error")
-                expectation.fulfill()
+                fetchedError = error
             }
+            expectation.fulfill()
         }
+
         waitForExpectations(timeout: 5, handler: nil)
+
+        XCTAssertNil(fetchedImageData)
+        XCTAssertEqual(fetchedError, NetworkError.noDate)
     }
 }

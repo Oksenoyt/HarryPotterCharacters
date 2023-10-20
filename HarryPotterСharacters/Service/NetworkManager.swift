@@ -18,13 +18,25 @@ enum NetworkError: Error {
     case decodingError
 }
 
-final class NetworkManager: NetworkingManagerProtocol {
+protocol URLSessionProtocol {
+    func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask
+}
+
+extension URLSession: URLSessionProtocol {}
+
+class NetworkManager: NetworkingManagerProtocol {
+    private let session: URLSessionProtocol
+
+    init(session: URLSessionProtocol = URLSession.shared) {
+        self.session = session
+    }
+
     func getCharacters(completion: @escaping(Result<[Character], NetworkError>) ->  Void) {
         fetch([Character].self, from: Link.character.rawValue) { result in
 
             switch result {
             case .success(let charactersList):
-                let characters = charactersList.filter { $0.image != "" }
+                let characters = charactersList.filter { !$0.image.isEmpty }
                 completion(.success(characters))
             case .failure(let error):
                 completion(.failure(error))
@@ -36,7 +48,7 @@ final class NetworkManager: NetworkingManagerProtocol {
         fetch([SpellForParsingAPI].self, from: Link.spells.rawValue) { result in
             switch result {
             case .success(let spellsTemp):
-               let spells = spellsTemp.map { spell in
+                let spells = spellsTemp.map { spell in
                     Spell(
                         id: "\(spell.name)" + "\(spell.description.prefix(3))",
                         name: spell.name,
@@ -62,7 +74,7 @@ final class NetworkManager: NetworkingManagerProtocol {
             }
         }
     }
-    
+
     // MARK: - Private function
     private func fetch<T: Decodable>(_ type: T.Type, from url: String, completion: @escaping(Result<T, NetworkError>) ->  Void) {
         guard let url = URL(string: url) else {
@@ -70,7 +82,7 @@ final class NetworkManager: NetworkingManagerProtocol {
             return
         }
 
-        URLSession.shared.dataTask(with: url) { data, _, error in
+        session.dataTask(with: url) { data, _, error in
             guard let data = data else {
                 completion(.failure(.noDate))
                 return
