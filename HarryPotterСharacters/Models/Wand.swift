@@ -7,12 +7,7 @@
 
 import Foundation
 
-struct Wand: Codable, Equatable {
+struct Wand: Decodable {
     let wood: String
     let core: String
-
-    static func ==(lhs: Wand, rhs: Wand) -> Bool {
-        return lhs.wood == rhs.wood &&
-        lhs.core == rhs.core
-    }
 }

@@ -14,7 +14,7 @@
 		425E23E82ADD9EF4001C3CBF /* NetworkingManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425E23E72ADD9EF4001C3CBF /* NetworkingManagerProtocol.swift */; };
 		425E23EA2ADDA08A001C3CBF /* StorageManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425E23E92ADDA08A001C3CBF /* StorageManagerProtocol.swift */; };
 		4260FF1B2AE23084000255EA /* SpellResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 4260FF1A2AE23084000255EA /* SpellResponse.json */; };
-		4260FF212AE23DB1000255EA /* testImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 4260FF202AE23DB1000255EA /* testImage.png */; };
+		4260FF252AE2423D000255EA /* harry.png in Resources */ = {isa = PBXBuildFile; fileRef = 4260FF242AE2423D000255EA /* harry.png */; };
 		4265388F2ACD9D6100C7809C /* Wand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4265388E2ACD9D6100C7809C /* Wand.swift */; };
 		426538952ACE43C000C7809C /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426538942ACE43C000C7809C /* Storyboarded.swift */; };
 		426FA12028A51F540051C07C /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426FA11F28A51F540051C07C /* NetworkManager.swift */; };
@@ -56,7 +56,7 @@
 		425E23E72ADD9EF4001C3CBF /* NetworkingManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManagerProtocol.swift; sourceTree = "<group>"; };
 		425E23E92ADDA08A001C3CBF /* StorageManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManagerProtocol.swift; sourceTree = "<group>"; };
 		4260FF1A2AE23084000255EA /* SpellResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SpellResponse.json; sourceTree = "<group>"; };
-		4260FF202AE23DB1000255EA /* testImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testImage.png; sourceTree = "<group>"; };
+		4260FF242AE2423D000255EA /* harry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = harry.png; sourceTree = "<group>"; };
 		4265388E2ACD9D6100C7809C /* Wand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wand.swift; sourceTree = "<group>"; };
 		426538942ACE43C000C7809C /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
 		426FA11F28A51F540051C07C /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -132,7 +132,7 @@
 				42AE49CD2ADE0F060013C999 /* MockURLSession.swift */,
 				421385C92AE08397001E682F /* CharacterResponse.json */,
 				4260FF1A2AE23084000255EA /* SpellResponse.json */,
-				4260FF202AE23DB1000255EA /* testImage.png */,
+				4260FF242AE2423D000255EA /* harry.png */,
 			);
 			path = "HarryPotterСharactersTests";
 			sourceTree = "<group>";
@@ -313,7 +313,7 @@
 			files = (
 				421385CA2AE08397001E682F /* CharacterResponse.json in Resources */,
 				4260FF1B2AE23084000255EA /* SpellResponse.json in Resources */,
-				4260FF212AE23DB1000255EA /* testImage.png in Resources */,
+				4260FF252AE2423D000255EA /* harry.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

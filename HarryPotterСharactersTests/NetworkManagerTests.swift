@@ -212,7 +212,7 @@ class NetworkManagerTests: XCTestCase {
     }
 
     func testFetchImageSuccessWithRelativePath() {
-        guard let relativePath = Bundle(for: type(of: self)).path(forResource: "testImage", ofType: "png"),
+        guard let relativePath = Bundle(for: type(of: self)).path(forResource: "harry", ofType: "png"),
               let mockImage = UIImage(contentsOfFile: relativePath),
               let mockImageData = mockImage.jpegData(compressionQuality: 1.0) else {
             XCTFail("Failed to load the mock image or its data")
