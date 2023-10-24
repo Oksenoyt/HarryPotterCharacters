@@ -10,6 +10,8 @@ import UIKit
 final class CollectionViewController: UICollectionViewController {
 
     private var characters: [Character] = []
+    private var activityIndicator: UIActivityIndicatorView?
+    private let networkManager: NetworkingManagerProtocol = NetworkManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,10 +20,11 @@ final class CollectionViewController: UICollectionViewController {
         collectionView.collectionViewLayout = UICollectionViewFlowLayout()
 
         setupRefreshControl()
+        activityIndicator = ActivityIndicator().showSpinner(in: view)
     }
 
     private func fetchData() {
-        NetworkManager.shared.getCharacters { [weak self] result in
+        networkManager.getCharacters { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let characterList):
@@ -29,6 +32,7 @@ final class CollectionViewController: UICollectionViewController {
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
                     self.collectionView.refreshControl?.endRefreshing()
+                    self.activityIndicator?.stopAnimating()
                 }
             case .failure(let error):
                 print(error)
@@ -50,8 +54,7 @@ final class CollectionViewController: UICollectionViewController {
 
     @IBAction func SpellsButtonAction(_ sender: Any) {
         let spellsVC = SpellsTableViewController.instantiate()
-        let navigationController = UINavigationController(rootViewController: spellsVC)
-        present(navigationController, animated: true, completion: nil)
+        present(spellsVC, animated: true, completion: nil)
     }
 
     @objc private func refreshData(_ sender: UIRefreshControl) {

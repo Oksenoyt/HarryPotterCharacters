@@ -33,7 +33,7 @@ final class SpellsTableViewCell: UITableViewCell {
     }
 
     private func setFavoritesButtonImage() {
-        guard var spell = currentSpell else { return }
+        guard let spell = currentSpell else { return }
         spell.isFavorites
         ? favoritesButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
         : favoritesButton.setImage(UIImage(systemName: "star"), for: .normal)

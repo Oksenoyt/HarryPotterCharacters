@@ -12,6 +12,7 @@ final class CharacterCell: UICollectionViewCell {
     @IBOutlet private weak var characterImageView: UIImageView!
     @IBOutlet private weak var nameCharacterLabel: UILabel!
 
+    private let networkManager: NetworkingManagerProtocol = NetworkManager()
     private var activityIndicator: UIActivityIndicatorView?
 
     private var imageURL: URL? {
@@ -61,7 +62,7 @@ final class CharacterCell: UICollectionViewCell {
             return
         }
 
-        NetworkManager.shared.fetchImage(from: url) { result in
+        networkManager.fetchImage(from: url) { result in
             switch result {
             case .success(let imageData):
                 guard let uiImage = UIImage(data: imageData) else {

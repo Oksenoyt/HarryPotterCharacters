@@ -14,6 +14,7 @@ final class DetailsViewController: UIViewController, Storyboarded {
     @IBOutlet private weak var descriptionLabel: UILabel!
 
     private var activityIndicator: UIActivityIndicatorView?
+    private let networkManager: NetworkingManagerProtocol = NetworkManager()
 
     var character: Character!
 
@@ -46,7 +47,7 @@ final class DetailsViewController: UIViewController, Storyboarded {
             return
         }
 
-        NetworkManager.shared.fetchImage(from: imageURL) { [weak self] result in
+        networkManager.fetchImage(from: imageURL) { [weak self] result in
             guard let self else { return }
 
             switch result {

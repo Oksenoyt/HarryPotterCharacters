@@ -14,21 +14,18 @@ enum Link: String {
 
 enum NetworkError: Error {
     case invalidURL
-    case noDate
+    case noData
     case decodingError
 }
 
-final class NetworkManager {
-    static let shared = NetworkManager()
-
-    private init() {}
+class NetworkManager: NetworkingManagerProtocol {
 
     func getCharacters(completion: @escaping(Result<[Character], NetworkError>) ->  Void) {
         fetch([Character].self, from: Link.character.rawValue) { result in
 
             switch result {
             case .success(let charactersList):
-                let characters = charactersList.filter { $0.image != "" }
+                let characters = charactersList.filter { !$0.image.isEmpty }
                 completion(.success(characters))
             case .failure(let error):
                 completion(.failure(error))
@@ -40,7 +37,7 @@ final class NetworkManager {
         fetch([SpellForParsingAPI].self, from: Link.spells.rawValue) { result in
             switch result {
             case .success(let spellsTemp):
-               let spells = spellsTemp.map { spell in
+                let spells = spellsTemp.map { spell in
                     Spell(
                         id: "\(spell.name)" + "\(spell.description.prefix(3))",
                         name: spell.name,
@@ -55,11 +52,10 @@ final class NetworkManager {
         }
     }
 
-    // MARK: - Private function
     func fetchImage(from url: URL, completion: @escaping(Result<Data, NetworkError>) ->  Void) {
         DispatchQueue.global().async {
             guard let imageDate = try? Data(contentsOf: url) else {
-                completion(.failure(.noDate))
+                completion(.failure(.noData))
                 return
             }
             DispatchQueue.main.async {
@@ -68,6 +64,7 @@ final class NetworkManager {
         }
     }
 
+    // MARK: - Private function
     private func fetch<T: Decodable>(_ type: T.Type, from url: String, completion: @escaping(Result<T, NetworkError>) ->  Void) {
         guard let url = URL(string: url) else {
             completion(.failure(.invalidURL))
@@ -76,7 +73,7 @@ final class NetworkManager {
 
         URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data else {
-                completion(.failure(.noDate))
+                completion(.failure(.noData))
                 return
             }
             do {
