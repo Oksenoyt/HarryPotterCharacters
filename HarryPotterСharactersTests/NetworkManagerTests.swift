@@ -41,10 +41,6 @@ private class NetworkManagerTests: XCTestCase {
         XCTAssertEqual(actualData, expectedData, "The actual result \(String(describing: actualData)) differs from the expected one \(String(describing: expectedData))")
     }
 
-    func testGetCharactersFilteringSuccess() {
-
-    }
-
     func testGetCharactersFailureNoDate() {
         var receivedError: NetworkError?
         var actualData: [Character]?
@@ -60,7 +56,7 @@ private class NetworkManagerTests: XCTestCase {
         }
 
         XCTAssertNotNil(receivedError)
-        XCTAssert(receivedError == NetworkError.noDate, "The error received \(String(describing: receivedError)) is different from the NetworkError.noDate")
+        XCTAssert(receivedError == NetworkError.noData, "The error received \(String(describing: receivedError)) is different from the NetworkError.noDate")
         XCTAssertNil(actualData)
     }
 
@@ -119,7 +115,7 @@ private class NetworkManagerTests: XCTestCase {
         }
 
         XCTAssertNotNil(receivedError)
-        XCTAssert(receivedError == NetworkError.noDate, "The error received \(String(describing: receivedError)) is different from the NetworkError.noDate")
+        XCTAssert(receivedError == NetworkError.noData, "The error received \(String(describing: receivedError)) is different from the NetworkError.noDate")
         XCTAssertNil(actualData)
     }
 
@@ -179,7 +175,7 @@ private class NetworkManagerTests: XCTestCase {
         }
 
         XCTAssertNotNil(receivedError)
-        XCTAssert(receivedError == NetworkError.noDate, "The error received \(String(describing: receivedError)) is different from the NetworkError.noDate")
+        XCTAssert(receivedError == NetworkError.noData, "The error received \(String(describing: receivedError)) is different from the NetworkError.noDate")
         XCTAssertNil(actualData)
     }
 
@@ -188,7 +184,7 @@ private class NetworkManagerTests: XCTestCase {
         var actualData: Data?
         var receivedError: NetworkError?
 
-        guard let url = URL(string: "test") else { return }
+        guard let url = URL(string: "https://www.google.com") else { return }
 
         mockNetworking.fetchImage(from: url) { result in
             switch result {

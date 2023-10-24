@@ -20,7 +20,7 @@ class MockNetworkManager: NetworkingManagerProtocol {
         } else if let characters = mockedCharacters, !characters.isEmpty {
             completion(.success(characters))
         } else {
-            completion(.failure(.noDate))
+            completion(.failure(.noData))
         }
     }
 
@@ -30,7 +30,7 @@ class MockNetworkManager: NetworkingManagerProtocol {
         } else if let spells = mockedSpells, !spells.isEmpty {
             completion(.success(spells))
         } else {
-            completion(.failure(.noDate))
+            completion(.failure(.noData))
         }
     }
 
@@ -40,7 +40,7 @@ class MockNetworkManager: NetworkingManagerProtocol {
         } else if let imageData = mockedImageData, !imageData.isEmpty {
             completion(.success(imageData))
         } else {
-            completion(.failure(.noDate))
+            completion(.failure(.noData))
         }
     }
 }

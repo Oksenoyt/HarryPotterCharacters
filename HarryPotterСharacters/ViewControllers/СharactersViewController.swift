@@ -54,8 +54,7 @@ final class CollectionViewController: UICollectionViewController {
 
     @IBAction func SpellsButtonAction(_ sender: Any) {
         let spellsVC = SpellsTableViewController.instantiate()
-        let navigationController = UINavigationController(rootViewController: spellsVC)
-        present(navigationController, animated: true, completion: nil)
+        present(spellsVC, animated: true, completion: nil)
     }
 
     @objc private func refreshData(_ sender: UIRefreshControl) {

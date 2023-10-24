@@ -14,7 +14,7 @@ enum Link: String {
 
 enum NetworkError: Error {
     case invalidURL
-    case noDate
+    case noData
     case decodingError
 }
 
@@ -55,7 +55,7 @@ class NetworkManager: NetworkingManagerProtocol {
     func fetchImage(from url: URL, completion: @escaping(Result<Data, NetworkError>) ->  Void) {
         DispatchQueue.global().async {
             guard let imageDate = try? Data(contentsOf: url) else {
-                completion(.failure(.noDate))
+                completion(.failure(.noData))
                 return
             }
             DispatchQueue.main.async {
@@ -73,7 +73,7 @@ class NetworkManager: NetworkingManagerProtocol {
 
         URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data else {
-                completion(.failure(.noDate))
+                completion(.failure(.noData))
                 return
             }
             do {
