@@ -18,18 +18,7 @@ enum NetworkError: Error {
     case decodingError
 }
 
-protocol URLSessionProtocol {
-    func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask
-}
-
-extension URLSession: URLSessionProtocol {}
-
 class NetworkManager: NetworkingManagerProtocol {
-    private let session: URLSessionProtocol
-
-    init(session: URLSessionProtocol = URLSession.shared) {
-        self.session = session
-    }
 
     func getCharacters(completion: @escaping(Result<[Character], NetworkError>) ->  Void) {
         fetch([Character].self, from: Link.character.rawValue) { result in
@@ -82,7 +71,7 @@ class NetworkManager: NetworkingManagerProtocol {
             return
         }
 
-        session.dataTask(with: url) { data, _, error in
+        URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data else {
                 completion(.failure(.noDate))
                 return

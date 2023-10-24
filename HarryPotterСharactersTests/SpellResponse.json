@@ -1,12 +1,14 @@
-[
-    {
-        "id": "c76a2922-ba4c-4278-baab-44defb631236",
-        "name": "Aberto",
-        "description": "Opens locked doors"
-    },
-    {
-        "id": "06485500-d023-4799-93fd-77f2c3341aa3",
-        "name": "Accio",
-        "description": "Summons objects"
-    }
-]
+    [
+        {
+            "id": "c76a2922-ba4c-4278-baab-44defb631236",
+            "name": "Aberto",
+            "description": "Opens locked doors",
+            "isFavorites": false
+        },
+        {
+            "id": "06485500-d023-4799-93fd-77f2c3341aa3",
+            "name": "Accio",
+            "description": "Summons objects",
+            "isFavorites": true
+        }
+    ]
