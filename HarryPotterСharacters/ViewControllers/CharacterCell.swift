@@ -66,7 +66,6 @@ final class CharacterCell: UICollectionViewCell {
             switch result {
             case .success(let imageData):
                 guard let uiImage = UIImage(data: imageData) else {
-                    print(NetworkError.decodingError)
                     return
                 }
 
