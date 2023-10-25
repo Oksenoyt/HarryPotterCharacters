@@ -11,8 +11,24 @@ import UIKit
 
  struct AlertController {
 
-     static func simpleAlert(title: String?, message: String?, buttonTitle: String, buttonAction: (() -> Void)? = nil) -> UIAlertController {
-         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+     static func simpleAlert(retry: Int, error: String?, buttonAction: (() -> Void)? = nil) -> UIAlertController {
+         var message = retry < 3
+             ? String(localized: "Try downloading again...")
+             : String(localized: "Please try again later")
+
+         if let errorText = error {
+             message += "\n\(errorText)"
+         }
+
+         let buttonTitle = retry < 3
+         ? String(localized: "Try again")
+         : String(localized: "OK")
+
+         let alert = UIAlertController(
+            title: String(localized: "Ops! Something went wrong"),
+            message: message,
+            preferredStyle: .alert
+         )
          let okAction = UIAlertAction(title: buttonTitle, style: .default) { _ in
              buttonAction?()
          }

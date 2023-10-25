@@ -27,6 +27,18 @@
         }
       }
     },
+    "OK" : {
+
+    },
+    "Ops! Something went wrong" : {
+
+    },
+    "Please try again later" : {
+
+    },
+    "Pull to refresh" : {
+
+    },
     "Spells" : {
       "localizations" : {
         "ru" : {
@@ -36,6 +48,12 @@
           }
         }
       }
+    },
+    "Try again" : {
+
+    },
+    "Try downloading again..." : {
+
     }
   },
   "version" : "1.0"

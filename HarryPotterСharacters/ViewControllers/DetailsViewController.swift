@@ -21,7 +21,6 @@ final class DetailsViewController: UIViewController, Storyboarded {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         configure(with: character)
     }
 
@@ -69,18 +68,6 @@ final class DetailsViewController: UIViewController, Storyboarded {
     }
 
     private func showAlert(error: String? = nil) {
-        var message = retryFetchImage < 3
-            ? "Try downloading again..."
-            : "Please try again later"
-
-        if let errorText = error {
-            message += "\n\(errorText)"
-        }
-
-        let buttonTitle = retryFetchImage < 3
-        ? "Try again"
-        : "OK"
-
         let buttonAction: (() -> Void)? = retryFetchImage < 3
         ? { [weak self] in
             guard let character = self?.character else { return }
@@ -89,9 +76,11 @@ final class DetailsViewController: UIViewController, Storyboarded {
         : nil
 
         let alert = AlertController.simpleAlert(
-            title: "Ops! Something went wrong",
-            message: message,
-            buttonTitle: buttonTitle) { buttonAction?() }
+            retry: retryFetchImage, 
+            error: error
+        ) {
+            buttonAction?()
+        }
         present(alert, animated: true)
     }
 

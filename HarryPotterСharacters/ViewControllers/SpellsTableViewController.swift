@@ -22,6 +22,7 @@ final class SpellsTableViewController: UITableViewController, Storyboarded {
     private var filteredSpells: [Spell] = []
     private var nonFavoriteSpells: [Spell] = []
     private var favoritesSpell: [Spell] = []
+    private var retryFetchImage = 0
 
     private var searchBarIsEmpty: Bool {
         guard let text = searchBar.text else { return true }
@@ -35,6 +36,7 @@ final class SpellsTableViewController: UITableViewController, Storyboarded {
     }
 
     private func fetchSpell() {
+        retryFetchImage += 1
         netrowkManager.getSpells { [weak self] result in
             guard let self else { return }
 
@@ -45,9 +47,25 @@ final class SpellsTableViewController: UITableViewController, Storyboarded {
                 filterSpells()
                 tableView.reloadData()
             case .failure(let error):
-                print(error)
+                showAlert(error: error.localizedDescription)
             }
         }
+    }
+
+    private func showAlert(error: String? = nil) {
+        let buttonAction: (() -> Void)? = retryFetchImage < 3
+        ? { [weak self] in
+            self?.fetchSpell()
+        }
+        : nil
+
+        let alert = AlertController.simpleAlert(
+            retry: retryFetchImage,
+            error: error
+        ) {
+            buttonAction?()
+        }
+        present(alert, animated: true)
     }
 
     // MARK: - Table view data source
@@ -117,8 +135,6 @@ final class SpellsTableViewController: UITableViewController, Storyboarded {
     private func refreshSpells(_ spell: Spell) {
         if let index = spells.firstIndex(where: { $0.name == spell.name }) {
             spells[index] = spell
-        } else {
-            print("element not found")
         }
     }
 
