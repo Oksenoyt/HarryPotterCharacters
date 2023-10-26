@@ -37,7 +37,9 @@ final class СharactersViewController: UICollectionViewController {
                     self.activityIndicator?.stopAnimating()
                 }
             case .failure(let error):
-                showAlert(error: error.localizedDescription) 
+                DispatchQueue.main.async {
+                    self.showAlert(error: error.localizedDescription)
+                }
             }
         }
     }
