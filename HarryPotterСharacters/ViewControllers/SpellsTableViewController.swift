@@ -62,9 +62,8 @@ final class SpellsTableViewController: UITableViewController, Storyboarded {
         let alert = AlertController.simpleAlert(
             retry: retryFetchImage,
             error: error
-        ) {
-            buttonAction?()
-        }
+        ) { buttonAction?() }
+        
         present(alert, animated: true)
     }
 

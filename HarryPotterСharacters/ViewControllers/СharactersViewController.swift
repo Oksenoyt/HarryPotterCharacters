@@ -52,9 +52,8 @@ final class СharactersViewController: UICollectionViewController {
         let alert = AlertController.simpleAlert(
             retry: retryFetchImage,
             error: error
-        ) {
-            buttonAction?()
-        }
+        ) { buttonAction?() }
+        
         present(alert, animated: true)
     }
 
@@ -95,6 +94,7 @@ final class СharactersViewController: UICollectionViewController {
         }
 
         let character = characters[indexPath.row]
+        cell.delegate = self
         cell.congigure(with: character)
 
         return cell
@@ -118,3 +118,11 @@ extension СharactersViewController: UICollectionViewDelegateFlowLayout {
         )
     }
 }
+
+// MARK: СharactersViewDelegate
+extension СharactersViewController: СharactersViewDelegate {
+    func didRequestToShowAlert(_ alert: UIAlertController) {
+        present(alert, animated: true)
+    }
+}
+

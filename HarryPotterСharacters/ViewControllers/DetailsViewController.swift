@@ -76,11 +76,10 @@ final class DetailsViewController: UIViewController, Storyboarded {
         : nil
 
         let alert = AlertController.simpleAlert(
-            retry: retryFetchImage, 
+            retry: retryFetchImage,
             error: error
-        ) {
-            buttonAction?()
-        }
+        ) { buttonAction?() }
+        
         present(alert, animated: true)
     }
 

@@ -28,16 +28,44 @@
       }
     },
     "OK" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Закрыть"
+          }
+        }
+      }
     },
     "Ops! Something went wrong" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Упс! Что-то пошло не так"
+          }
+        }
+      }
     },
     "Please try again later" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пожалуйста, попробуйте позже"
+          }
+        }
+      }
     },
     "Pull to refresh" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Потяните, чтобы обновить"
+          }
+        }
+      }
     },
     "Spells" : {
       "localizations" : {
@@ -50,10 +78,24 @@
       }
     },
     "Try again" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Попробуйте еще раз"
+          }
+        }
+      }
     },
     "Try downloading again..." : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Попробуйте загрузить еще раз..."
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

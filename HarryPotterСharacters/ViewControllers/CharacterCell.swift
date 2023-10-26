@@ -14,6 +14,7 @@ final class CharacterCell: UICollectionViewCell {
 
     private let networkManager: NetworkingManagerProtocol = NetworkManager()
     private var activityIndicator: UIActivityIndicatorView?
+    private var retryFetchImage = 0
 
     private var imageURL: URL? {
         didSet {
@@ -22,6 +23,8 @@ final class CharacterCell: UICollectionViewCell {
         }
     }
 
+    weak var delegate: СharactersViewDelegate?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
 
@@ -50,7 +53,7 @@ final class CharacterCell: UICollectionViewCell {
                     activityIndicator?.stopAnimating()
                 }
             case .failure(let error):
-                print(error)
+                self.showAlert(error: error.localizedDescription)
             }
         }
     }
@@ -62,7 +65,7 @@ final class CharacterCell: UICollectionViewCell {
             return
         }
 
-        networkManager.fetchImage(from: url) { result in
+        networkManager.fetchImage(from: url) { [weak self] result in
             switch result {
             case .success(let imageData):
                 guard let uiImage = UIImage(data: imageData) else {
@@ -73,10 +76,26 @@ final class CharacterCell: UICollectionViewCell {
                 completion(.success(uiImage))
 
             case .failure(let error):
-                print(error)
+                self?.showAlert(error: error.localizedDescription)
             }
         }
     }
+
+    private func showAlert(error: String? = nil) {
+        let buttonAction: (() -> Void)? = retryFetchImage < 3
+        ? { [weak self] in
+            self?.updateImage()
+        }
+        : nil
+
+        let alert = AlertController.simpleAlert(
+            retry: retryFetchImage,
+            error: error
+        ) { buttonAction?() }
+
+        delegate?.didRequestToShowAlert(alert)
+    }
+
 
     private func layoutActivityIndicator(){
         guard let activityIndicator = activityIndicator else { return }
