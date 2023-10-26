@@ -13,7 +13,6 @@ final class SpellsTableViewController: UITableViewController, Storyboarded {
         case original
     }
 
-
     @IBOutlet weak var searchBar: UISearchBar!
 
     private let storageManager: StorageManagerProtocol = StorageManager()
@@ -32,6 +31,7 @@ final class SpellsTableViewController: UITableViewController, Storyboarded {
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
+        tableView.allowsSelection = false
         fetchSpell()
     }
 
@@ -105,10 +105,6 @@ final class SpellsTableViewController: UITableViewController, Storyboarded {
     }
 
     // MARK: - UITableViewDelegate
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let header = view as? UITableViewHeaderFooterView else { return }
         configureHeader(view: header)
