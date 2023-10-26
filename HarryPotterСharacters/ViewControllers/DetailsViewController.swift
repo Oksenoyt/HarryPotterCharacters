@@ -15,12 +15,12 @@ final class DetailsViewController: UIViewController, Storyboarded {
 
     private var activityIndicator: UIActivityIndicatorView?
     private let networkManager: NetworkingManagerProtocol = NetworkManager()
+    private var retryFetchImage = 0
 
     var character: Character!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         configure(with: character)
     }
 
@@ -38,6 +38,7 @@ final class DetailsViewController: UIViewController, Storyboarded {
     }
 
     private func getImage(from url: String) {
+        retryFetchImage += 1
         guard let imageURL = URL(string: url) else { return }
 
         if let cahcedImage = ImageCacheManager.shared.object(forKey: imageURL.lastPathComponent as NSString) {
@@ -53,7 +54,7 @@ final class DetailsViewController: UIViewController, Storyboarded {
             switch result {
             case .success(let imageData):
                 guard let uiImage = UIImage(data: imageData) else {
-                    print(NetworkError.decodingError)
+                    showAlert()
                     return
                 }
 
@@ -61,9 +62,25 @@ final class DetailsViewController: UIViewController, Storyboarded {
                 imageView.image = uiImage
                 activityIndicator?.stopAnimating()
             case .failure(let error):
-                print(error)
+                showAlert(error: error.localizedDescription)
             }
         }
+    }
+
+    private func showAlert(error: String? = nil) {
+        let buttonAction: (() -> Void)? = retryFetchImage < 3
+        ? { [weak self] in
+            guard let character = self?.character else { return }
+            self?.getImage(from: character.image)
+        }
+        : nil
+
+        let alert = AlertController.simpleAlert(
+            retry: retryFetchImage,
+            error: error
+        ) { buttonAction?() }
+        
+        present(alert, animated: true)
     }
 
     private func layoutActivityIndicator(){

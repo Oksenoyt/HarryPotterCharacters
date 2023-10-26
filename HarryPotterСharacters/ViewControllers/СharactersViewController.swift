@@ -7,11 +7,12 @@
 
 import UIKit
 
-final class CollectionViewController: UICollectionViewController {
+final class СharactersViewController: UICollectionViewController {
 
     private var characters: [Character] = []
     private var activityIndicator: UIActivityIndicatorView?
     private let networkManager: NetworkingManagerProtocol = NetworkManager()
+    private var retryFetchImage = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,7 @@ final class CollectionViewController: UICollectionViewController {
     }
 
     private func fetchData() {
+        retryFetchImage += 1
         networkManager.getCharacters { [weak self] result in
             guard let self else { return }
             switch result {
@@ -35,9 +37,24 @@ final class CollectionViewController: UICollectionViewController {
                     self.activityIndicator?.stopAnimating()
                 }
             case .failure(let error):
-                print(error)
+                showAlert(error: error.localizedDescription) 
             }
         }
+    }
+
+    private func showAlert(error: String? = nil) {
+        let buttonAction: (() -> Void)? = retryFetchImage < 3
+        ? { [weak self] in
+            self?.fetchData()
+        }
+        : nil
+
+        let alert = AlertController.simpleAlert(
+            retry: retryFetchImage,
+            error: error
+        ) { buttonAction?() }
+        
+        present(alert, animated: true)
     }
 
     private func setupRefreshControl() {
@@ -47,7 +64,7 @@ final class CollectionViewController: UICollectionViewController {
         refreshControl.tintColor = .lightGray
         refreshControl.attributedTitle =
         NSAttributedString(
-            string: "Pull to refresh",
+            string: String(localized: "Pull to refresh"),
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray]
         )
     }
@@ -77,6 +94,7 @@ final class CollectionViewController: UICollectionViewController {
         }
 
         let character = characters[indexPath.row]
+        cell.delegate = self
         cell.congigure(with: character)
 
         return cell
@@ -90,7 +108,7 @@ final class CollectionViewController: UICollectionViewController {
 }
 
 // MARK: UICollectionViewDelegateFlowLayout
-extension CollectionViewController: UICollectionViewDelegateFlowLayout {
+extension СharactersViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -100,3 +118,11 @@ extension CollectionViewController: UICollectionViewDelegateFlowLayout {
         )
     }
 }
+
+// MARK: СharactersViewDelegate
+extension СharactersViewController: СharactersViewDelegate {
+    func didRequestToShowAlert(_ alert: UIAlertController) {
+        present(alert, animated: true)
+    }
+}
+
