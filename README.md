@@ -6,14 +6,16 @@ _____________________________________
 - UITableViewController, UITableViewCell
 - Section in the UITableView 
   (when adding or removing a spell from the favorites the cell moves to the corresponding section)
-- Singleton (NetworkManager)
 - URLSession, request data using generic
 - NSCache 
 - UIActivityIndicatorView
 - UIRefreshControl
 - UISearchBar
+- UIAlertController
 - UserDefaults
 - Protocols, delegate
+- Error-handling
+- Unit tests
 - MVC
 - UIKit
 
